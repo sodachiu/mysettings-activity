@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    android:orientation="vertical">
+
+    <!--header部分-->
+    <include layout="@layout/header_include" />
+
+    <LinearLayout
+        android:id="@+id/under_header"
+        style="@style/mainStyle">
+
+        <!--引入menu布局-->
+        <include layout="@layout/menu_include" />
+
+        <LinearLayout
+            style="@style/fragmentStyle"
+            android:id="@+id/layout_display">
+
+            <!--##########################设置分辨率部分###################################-->
+            <TextView
+                android:text="@string/set_resolution"
+                style="@style/TitleStyle"
+                android:background="@drawable/background_title"/>
+
+
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="true"
+                android:id="@+id/set_resolution">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_weight="4"
+                    android:gravity="start|center_vertical"
+                    android:layout_marginLeft="100dp"
+                    android:text="@string/resolution" />
+
+            </LinearLayout>
+
+            <!--##########################改变图像位置部分###################################-->
+            <TextView
+                android:text="@string/change_image_position"
+                style="@style/TitleStyle"
+                android:background="@drawable/background_title"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="true"
+                android:id="@+id/adjust_frame_output_region">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:gravity="start|center_vertical"
+                    android:layout_marginLeft="100dp"
+                    android:text="@string/adjust_screen_output_region"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

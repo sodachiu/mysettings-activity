@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    android:orientation="vertical">
+
+    <!--header部分-->
+    <include layout="@layout/header_include" />
+
+    <LinearLayout
+        android:id="@+id/under_header"
+        style="@style/mainStyle">
+
+        <!--引入menu布局-->
+        <include layout="@layout/menu_include" />
+
+        <LinearLayout
+            style="@style/fragmentStyle"
+            android:id="@+id/layout_static_ip">
+
+            <TextView
+                android:text="@string/static_ip_title"
+                style="@style/TitleStyle"
+                android:background="@drawable/background_title"/>
+
+            <LinearLayout
+                style="@style/staticIpLinearLayoutStyle"
+                android:layout_marginTop="50dp">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_width="wrap_content"
+                    android:text="@string/ip_address" />
+                <EditText
+                    style="@style/editViewStyle"
+                    android:id="@+id/ip_addr" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/staticIpLinearLayoutStyle">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_width="wrap_content"
+                    android:text="@string/subnet_mask"/>
+                <EditText
+                    style="@style/editViewStyle"
+                    android:id="@+id/static_subnet_mask"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/staticIpLinearLayoutStyle">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_width="wrap_content"
+                    android:text="@string/default_gateway"/>
+                <EditText
+                    style="@style/editViewStyle"
+                    android:id="@+id/static_default_gateway" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/staticIpLinearLayoutStyle">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_width="wrap_content"
+                    android:text="@string/main_dns"/>
+                <EditText
+                    style="@style/editViewStyle"
+                    android:id="@+id/static_main_DNS" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/staticIpLinearLayoutStyle">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_width="wrap_content"
+                    android:text="@string/backup_dns"/>
+                <EditText
+                    style="@style/editViewStyle"
+                    android:id="@+id/static_backup_DNS"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/staticIpLinearLayoutStyle"
+                android:gravity="center_vertical|end">
+
+                <Button
+                    style="@style/ButtonStyle"
+                    android:text="@string/button_confirm"
+
+                    android:id="@+id/static_ip_confirm" />
+                <Button
+                    style="@style/ButtonStyle"
+                    android:layout_marginLeft="20dp"
+
+                    android:text="@string/button_cancel"
+                    android:id="@+id/static_ip_cancel" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

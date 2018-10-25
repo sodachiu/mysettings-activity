@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    android:orientation="vertical">
+
+    <include layout="@layout/header_include" />
+
+    <!--主体部分-->
+    <LinearLayout
+        android:id="@+id/under_header"
+        style="@style/mainStyle">
+
+        <!--引入menu布局-->
+        <include layout="@layout/menu_include" />
+
+        <LinearLayout
+            style="@style/fragmentStyle"
+            android:id="@+id/layout_store_info">
+
+            <TextView
+                android:text="@string/store_information"
+                style="@style/TitleStyle"
+                android:background="@drawable/background_title"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="false">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_weight="3.5"
+                    android:gravity="start|center_vertical"
+                    android:layout_marginLeft="100dp"
+                    android:text="@string/total_capacity" />
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_weight="1.5"
+                    android:gravity="start|center_vertical"
+                    android:text=""
+                    android:id="@+id/storage_tv_total"/>
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_weight="5"
+                    android:gravity="start|center_vertical"
+                    android:text=""
+                    android:id="@+id/storage_tv_devices_count1"/>
+
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="false">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_weight="3.5"
+                    android:gravity="start|center_vertical"
+                    android:layout_marginLeft="100dp"
+                    android:text="@string/remaining_capacity" />
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_weight="1.5"
+                    android:gravity="start|center_vertical"
+                    android:text=""
+                    android:id="@+id/storage_tv_available"/>
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_weight="5"
+                    android:gravity="start|center_vertical"
+                    android:text=""
+                    android:id="@+id/storage_tv_devices_count2"/>
+
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="true"
+                android:id="@+id/storage_unmount">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:gravity="start|center_vertical"
+                    android:layout_marginLeft="100dp"
+                    android:text="@string/uninstall_outside_devices" />
+
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

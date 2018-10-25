@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="600dp"
+    android:layout_height="400dp"
+    android:orientation="vertical"
+    android:background="@drawable/background_dialog">
+
+    <TextView
+        style="@style/dialogTextStyle"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="35dp"
+        android:text="@string/information" />
+
+    <LinearLayout
+        style="@style/dialogLinearLayoutContentStyle"
+        android:gravity="center_vertical">
+        <TextView
+            style="@style/dialogTextStyle"
+            android:id="@+id/bluetooth_pair_prompt_info"/>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        style="@style/dialogLinearLayoutButtonStyle">
+
+        <Button
+            style="@style/ButtonStyle"
+            android:text="@string/button_confirm"
+            android:id="@+id/bluetooth_btn_pair_confirm"/>
+
+        <Button
+            style="@style/ButtonStyle"
+            android:text="@string/button_cancel"
+            android:id="@+id/bluetooth_btn_pair_cancel"/>
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,108 @@
+<resources>
+    <string name="app_name">我的设置settings</string>
+    <string name="header_text">设置_settings</string>
+
+
+    <string name="pppoe_local_broadcast">com.example.mysettings.PPPOE_LOCAL_BROADCAST</string>
+    <!--程序中通用的一些文本-->
+    <string name="password">密码：</string>
+    <string name="information">信息：</string>
+    <string name="button_confirm">确定</string>
+    <string name="button_cancel">取消</string>
+    <string name="text_wrong_pwd">您输入的密码有误</string>
+    <string name="net_default_text">0.0.0.0</string>
+    <string name="connected">已連接</string>
+
+    <!--######################菜单中的文本信息#########################-->
+    <string name="about_this_machine">关于本机</string>
+    <string name="set_network">网络设置</string>
+    <string name="network_information">网络信息</string>
+    <string name="date_and_time">日期和时间</string>
+    <string name="display">显示</string>
+    <string name="store_information">存储信息</string>
+    <string name="advanced">高级设置</string>
+    <string name="restore_factory">恢复出厂设置</string>
+
+
+    <!--######################关于本机下的所有单一使用的文本信息#########################-->
+    <string name="machine_type">设备型号：</string>
+    <string name="software_release">软件版本：</string>
+    <string name="android_release">安卓版本：</string>
+    <string name="mac_address">MAC地址：</string>
+    <string name="stbid">STBID：</string>
+    <string name="authenticate_main_address">认证业务主地址：</string>
+    <string name="authenticate_backup_address">认证业务备地址：</string>
+    <string name="terminal_manage_main_address">终端管理主地址：</string>
+    <string name="terminal_manage_backup_address">终端管理备地址：</string>
+    <string name="authenticate_account">认证业务账号：</string>
+
+    <!--######################网络配置下的所有单一使用的文本信息#########################-->
+    <string name="set_ethernet">有线网络设置</string>
+    <string name="manage_ethernet">设置和管理有线网络</string>
+    <string name="set_pppoe">PPPoE</string>
+    <string name="set_pppoe_title">有线PPPoE</string>
+    <string name="pppoe_username">用户名：</string>
+    <string name="set_dhcp">DHCP</string>
+    <string name="dhcp_connect_status">已连接</string>
+    <string name="set_static_ip">静态IP</string>
+    <string name="static_ip_title">有线静态</string>
+    <string name="set_bluetooth">设置蓝牙</string>
+    <string name="bluetooth_status">蓝牙开关</string>
+    <string name="paired">已配对</string>
+    <string name="bound">已绑定</string>
+    <string name="unbind">未绑定</string>
+
+    <!--######################网络信息下所有单一使用的文本信息#########################-->
+    <string name="ethernet">有线网络</string>
+    <string name="dhcp_connected">有线网络已连接：DHCP</string>
+    <string name="pppoe_connected">有线网络已连接：PPPoE</string>
+    <string name="static_connected">有线网络已连接：静态IP</string>
+    <string name="ip_address">IP地址：</string>
+    <string name="subnet_mask">子网掩码：</string>
+    <string name="default_gateway">默认网关：</string>
+    <string name="main_dns">主用DNS：</string>
+    <string name="backup_dns">备用DNS：</string>
+
+    <!--######################日期和时间下的所有单一使用的文本信息#########################-->
+    <string name="set_date_and_time">设置日期和时间</string>
+    <string name="use_24hours_format">使用24小时格式</string>
+    <string name="select_date_format">选择日期格式</string>
+
+    <string name="set_time_server">时间服务器设置</string>
+    <string name="main_time_server_address">主时间同步服务器地址</string>
+    <string name="backup_time_server_address">备时间同步服务器地址</string>
+
+
+    <!--######################显示下的所有单一使用的文本信息#########################-->
+    <string name="set_resolution">设置分辨率</string>
+    <string name="resolution">分辨率</string>
+    <string name="change_image_position">改变图像位置</string>
+    <string name="adjust_screen_output_region">调整画面输出区域</string>
+    <string name="adjust_region_prompt_text">请按上/下/左/右键调整画面输出区域，按返回键退出（注：请确保边框在可见区域内）</string>
+    <string name="resolution_change_prompt_info">确认是否切换到该制式？</string>
+
+    <!--######################存储信息下的所有单一使用的文本信息#########################-->
+    <string name="total_capacity">总容量</string>
+    <string name="remaining_capacity">可用空间</string>
+    <string name="uninstall_outside_devices">卸载外部存储设备</string>
+    <string name="uninstall_dev_prompt_text">存储设备将要被卸载</string>
+
+
+    <!--######################高级设置下的所有单一使用的文本信息#########################-->
+    <string name="one_click_clean">一键清理</string>
+    <string name="alternative_to_clear">可清理垃圾：20.00KB</string>
+    <string name="set_sleep_function">休眠功能设置</string>
+    <string name="minutes_to_sleep">电视机待机后，5分钟后机顶盒自动待机</string>
+    <string name="hours_to_sleep">无遥控器操作，4小时候后机顶盒自动待机</string>
+
+    <!--######################恢复出厂设置下的所有单一使用的文本信息#########################-->
+    <string name="restore_machine">重置机顶盒</string>
+    <string name="res_factory_prompt_text">这将清除内存所有数据，包括：</string>
+    <string name="res_factory_prompt_list1">· 你的账户</string>
+    <string name="res_factory_prompt_list2">· 系统和应用程序的数据和设置</string>
+    <string name="res_factory_prompt_list3">· 下载的应用</string>
+
+
+</resources>
+
+

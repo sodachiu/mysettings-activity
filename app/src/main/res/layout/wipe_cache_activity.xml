@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    android:orientation="vertical">
+
+    <!--header部分-->
+    <include layout="@layout/header_include" />
+
+    <LinearLayout
+        android:id="@+id/under_header"
+        style="@style/mainStyle">
+
+        <!--引入menu布局-->
+        <include layout="@layout/menu_include" />
+
+        <LinearLayout
+            style="@style/fragmentStyle"
+            android:id="@+id/layout_clear_all">
+
+            <TextView
+                android:text="@string/one_click_clean"
+                style="@style/TitleStyle"
+                android:background="@drawable/background_title"/>
+
+            <LinearLayout
+                android:layout_gravity="center_horizontal"
+                android:layout_width="900dp"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_weight="1"
+                    android:textAlignment="textStart"
+                    android:text="@string/alternative_to_clear"/>
+                <Button
+                    style="@style/ButtonStyle"
+                    android:text="@string/one_click_clean"
+                    android:layout_marginEnd="60dp"
+                    android:id="@+id/button_clear_all"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

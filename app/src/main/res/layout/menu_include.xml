@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="0dp"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:gravity="end"
+    android:id="@+id/menu">
+
+
+    <TextView
+        android:id="@+id/my_info"
+        style="@style/menuStyle"
+        android:text="@string/about_this_machine" />
+
+    <TextView
+        android:id="@+id/net_setting"
+        style="@style/menuStyle"
+        android:text="@string/set_network" />
+
+    <TextView
+        android:id="@+id/net_info"
+        style="@style/menuStyle"
+        android:text="@string/network_information" />
+
+    <TextView
+        android:id="@+id/date_time"
+        style="@style/menuStyle"
+        android:text="@string/date_and_time" />
+
+    <TextView
+        android:id="@+id/display"
+        style="@style/menuStyle"
+        android:text="@string/display" />
+
+    <TextView
+        android:id="@+id/store_info"
+        style="@style/menuStyle"
+        android:text="@string/store_information" />
+
+    <TextView
+        android:id="@+id/advanced"
+        style="@style/menuStyle"
+        android:text="@string/advanced" />
+
+    <TextView
+        android:id="@+id/res_factory"
+        style="@style/menuStyle"
+        android:text="@string/restore_factory" />
+
+
+
+</LinearLayout>

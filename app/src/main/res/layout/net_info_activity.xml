@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    android:orientation="vertical">
+
+    <include layout="@layout/header_include" />
+
+    <!--主体部分-->
+    <LinearLayout
+        android:id="@+id/under_header"
+        style="@style/mainStyle">
+
+        <!--引入menu布局-->
+        <include layout="@layout/menu_include" />
+
+        <LinearLayout
+            style="@style/fragmentStyle"
+            android:id="@+id/layout_net_info">
+
+            <TextView
+                android:text="@string/network_information"
+                style="@style/TitleStyle"
+                android:background="@drawable/background_title"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/ip_address"/>
+                <TextView
+                    android:text="@string/net_default_text"
+                    style="@style/LayoutContentStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/ip_addr"/>
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+
+            <LinearLayout
+                style="@style/LayoutStyle">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/subnet_mask"/>
+                <TextView
+                    android:text="@string/net_default_text"
+                    style="@style/LayoutContentStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/net_mask"/>
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/default_gateway"/>
+
+                <TextView
+                    android:text="@string/net_default_text"
+                    style="@style/LayoutContentStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/gateway"/>
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/main_dns"/>
+                <EditText
+                    android:text="@string/net_default_text"
+                    style="@style/LayoutContentStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:focusable="true"
+                    android:background="@null"
+                    android:id="@+id/dns1"/>
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/backup_dns"/>
+                <EditText
+                    android:text="@string/net_default_text"
+                    style="@style/LayoutContentStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:focusable="true"
+                    android:background="@null"
+                    android:id="@+id/dns2"/>
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

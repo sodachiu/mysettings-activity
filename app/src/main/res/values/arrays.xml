@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="date_format">
+        <item>区域(YYYY-MM-DD)</item>
+        <item>MM-DD-YYYY</item>
+        <item>DD-MM-YYYY</item>
+        <item>YYYY-MM-DD</item>
+    </array>
+</resources>

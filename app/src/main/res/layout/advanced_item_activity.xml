@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    android:orientation="vertical">
+
+    <!--header部分-->
+    <include layout="@layout/header_include" />
+
+    <LinearLayout
+        android:id="@+id/under_header"
+        style="@style/mainStyle">
+
+        <!--引入menu布局-->
+        <include layout="@layout/menu_include" />
+
+        <LinearLayout
+            style="@style/fragmentStyle"
+            android:id="@+id/layout_bluetooth">
+
+            <TextView
+                android:text="@string/advanced"
+                style="@style/TitleStyle"
+                android:background="@drawable/background_title"/>
+
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="true"
+                android:id="@+id/clear_all">
+
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|start"
+                    android:paddingStart="100dp"
+                    android:text="@string/one_click_clean" />
+            </LinearLayout>
+
+            <TextView
+                android:text="@string/set_sleep_function"
+                style="@style/TitleStyle"
+                android:paddingLeft="40dp"
+                android:background="@drawable/background_title"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="true"
+                android:id="@+id/standby_5_minutes" >
+
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="100dp"
+                    android:text="@string/minutes_to_sleep" />
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/checkbox_off"
+                    android:id="@+id/image_standby_minutes_state"
+                    android:layout_marginEnd="20dp"/>
+            </LinearLayout>
+                <!--此处给ImageView设定了初始图片，在代码中要改成动态设置-->
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="true"
+                android:id="@+id/standby_4_hours" >
+
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:paddingLeft="100dp"
+                    android:text="@string/hours_to_sleep" />
+                <ImageView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:src="@drawable/checkbox_off"
+                    android:id="@+id/image_standby_hours_state"
+                    android:layout_marginEnd="20dp"/>
+            </LinearLayout>
+            <!--此处给ImageView设定了初始图片，在代码中要改成动态设置-->
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

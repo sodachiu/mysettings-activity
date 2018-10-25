@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    android:orientation="vertical">
+
+    <include layout="@layout/header_include" />
+
+    <!--主体部分-->
+    <LinearLayout
+        android:id="@+id/under_header"
+        style="@style/mainStyle">
+
+        <!--引入menu布局-->
+        <include layout="@layout/menu_include" />
+
+        <!--放碎片的布局-->
+        <LinearLayout
+            style="@style/fragmentStyle"
+            android:id="@+id/layout_wire_setting">
+
+            <TextView
+                android:text="@string/set_ethernet"
+                style="@style/TitleStyle"
+                android:background="@drawable/background_title"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="true"
+                android:id="@+id/pppoe_container">
+                <RadioButton
+                    style="@style/RadioButtonStyle"
+                    android:text="@string/set_pppoe"
+                    android:id="@+id/pppoe_radiobutton"/>
+                <TextView
+                    style="@style/LayoutContentStyle"
+                    android:layout_weight="1"
+                    android:id="@+id/pppoe_state"/>
+
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="true"
+                android:id="@+id/dhcp_container">
+                <RadioButton
+                    style="@style/RadioButtonStyle"
+                    android:text="@string/set_dhcp"
+                    android:id="@+id/dhcp_radiobutton"/>
+                <TextView
+                    style="@style/LayoutContentStyle"
+                    android:layout_weight="1"
+                    android:id="@+id/dhcp_state"/>
+
+
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="true"
+                android:id="@+id/static_ip_container">
+                <RadioButton
+                    style="@style/RadioButtonStyle"
+                    android:text="@string/set_static_ip"
+                    android:id="@+id/static_ip_radiobutton"/>
+                <TextView
+                    style="@style/LayoutContentStyle"
+                    android:layout_weight="1"
+                    android:id="@+id/static_ip_state"
+                    android:text="hello"/>
+
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

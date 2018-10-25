@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        style="@style/LayoutTagStyle"
+        android:layout_weight="1"
+        android:gravity="center_vertical|start"
+        android:paddingLeft="100dp"
+        android:id="@+id/datetime_tv_format"/>
+    <Button
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/datetime_btn_format"
+        android:layout_marginRight="10dp"/>
+
+</LinearLayout>

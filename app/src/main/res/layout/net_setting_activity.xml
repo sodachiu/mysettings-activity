@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    android:orientation="vertical">
+
+    <include layout="@layout/header_include" />
+
+    <!--主体部分-->
+    <LinearLayout
+        android:id="@+id/under_header"
+        style="@style/mainStyle">
+
+        <!--引入menu布局-->
+        <include layout="@layout/menu_include" />
+
+        <!--放碎片的布局-->
+        <LinearLayout
+            style="@style/fragmentStyle"
+            android:id="@+id/layout_net_setting">
+
+            <TextView
+                android:text="@string/set_network"
+                style="@style/TitleStyle"
+                android:background="@drawable/background_title"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="true"
+                android:id="@+id/set_net">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="100dp"
+                    android:text="@string/set_ethernet"/>
+                <TextView
+                    android:text="@string/manage_ethernet"
+                    style="@style/LayoutContentStyle" />
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="true"
+                android:id="@+id/set_bluetooth">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:gravity="center_vertical"
+                    android:layout_marginLeft="100dp"
+                    android:text="@string/set_bluetooth"/>
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

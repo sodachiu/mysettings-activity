@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    android:orientation="vertical">
+
+    <include layout="@layout/header_include" />
+
+    <!--主体部分-->
+    <LinearLayout
+        android:id="@+id/under_header"
+        style="@style/mainStyle">
+
+        <!--引入menu布局-->
+        <include layout="@layout/menu_include" />
+
+        <!--放碎片的布局-->
+        <LinearLayout
+            style="@style/fragmentStyle"
+            android:id="@+id/layout_my_info">
+
+            <TextView
+                android:text="@string/about_this_machine"
+                style="@style/TitleStyle"
+                android:background="@drawable/background_title"/>
+
+
+            <LinearLayout style="@style/LayoutStyle" android:focusable="false">
+                <TextView style="@style/LayoutTagStyle" android:text="@string/machine_type"/>
+                <TextView android:id="@+id/about_tv_model" style="@style/LayoutContentStyle" />
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout style="@style/LayoutStyle" android:focusable="false">
+                <TextView style="@style/LayoutTagStyle" android:text="@string/software_release"/>
+                <TextView android:id="@+id/about_tv_software" style="@style/LayoutContentStyle" />
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout style="@style/LayoutStyle" android:focusable="false">
+                <TextView style="@style/LayoutTagStyle" android:text="@string/android_release"/>
+                <TextView android:id="@+id/about_tv_android" style="@style/LayoutContentStyle" />
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout style="@style/LayoutStyle" android:focusable="false">
+                <TextView style="@style/LayoutTagStyle" android:text="@string/mac_address"/>
+                <TextView android:id="@+id/about_tv_mac" style="@style/LayoutContentStyle" />
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout style="@style/LayoutStyle" android:focusable="false">
+                <TextView style="@style/LayoutTagStyle" android:text="@string/stbid"/>
+                <TextView android:id="@+id/about_tv_stbid" style="@style/LayoutContentStyle" />
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout style="@style/LayoutStyle" android:focusable="false">
+                <TextView style="@style/LayoutTagStyle" android:text="@string/authenticate_main_address"/>
+                <TextView android:id="@+id/about_tv_auth_addr1" style="@style/LayoutContentStyle" />
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout style="@style/LayoutStyle" android:focusable="false">
+                <TextView style="@style/LayoutTagStyle" android:text="@string/authenticate_backup_address"/>
+                <TextView android:id="@+id/about_tv_auth_addr2" style="@style/LayoutContentStyle" />
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout style="@style/LayoutStyle" android:focusable="false">
+                <TextView style="@style/LayoutTagStyle" android:text="@string/terminal_manage_main_address"/>
+                <TextView android:id="@+id/about_tv_terminal1" style="@style/LayoutContentStyle" />
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout style="@style/LayoutStyle" android:focusable="false">
+                <TextView style="@style/LayoutTagStyle" android:text="@string/terminal_manage_backup_address"/>
+                <TextView android:id="@+id/about_tv_terminal2" style="@style/LayoutContentStyle" />
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout style="@style/LayoutStyle" android:focusable="false">
+                <TextView style="@style/LayoutTagStyle" android:text="@string/authenticate_account"/>
+                <TextView android:id="@+id/about_tv_account" style="@style/LayoutContentStyle" />
+            </LinearLayout>
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

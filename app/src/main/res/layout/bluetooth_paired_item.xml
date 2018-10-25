@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@drawable/content_focus_selector"
+    android:focusable="true"
+    android:descendantFocusability="beforeDescendants"
+    >
+
+    <ImageView
+        android:layout_width="30dip"
+        android:layout_height="30dip"
+        android:layout_marginTop="15dip"
+        android:layout_marginStart="15dip"
+        android:background="@drawable/chosen"
+        android:focusable="false"
+        />
+
+    <TextView
+        android:id="@+id/bluetooth_tv_paired_item_name"
+        android:layout_width="250dip"
+        android:layout_height="50dip"
+        android:layout_gravity="top|start"
+        android:layout_marginStart="50dip"
+        android:textColor="@android:color/white"
+        android:gravity="start|center"
+        android:focusable="false"
+        />
+    <TextView
+        android:id="@+id/tv_connected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/paired"
+        android:textColor="@android:color/white"
+        android:focusable="false"
+        />
+
+</LinearLayout>

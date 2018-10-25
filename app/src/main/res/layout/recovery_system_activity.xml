@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background_main"
+    android:orientation="vertical"
+    android:id="@+id/layout_res_factory">
+
+    <!--header部分-->
+    <include layout="@layout/header_include" />
+
+    <LinearLayout
+        android:id="@+id/under_header"
+        style="@style/mainStyle">
+
+        <!--引入menu布局-->
+        <include layout="@layout/menu_include" />
+
+        <LinearLayout
+            style="@style/fragmentStyle">
+
+            <TextView
+                android:text="@string/restore_factory"
+                style="@style/TitleStyle"
+                android:background="@drawable/background_title"/>
+
+
+            <LinearLayout
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp">
+                <TextView
+                    style="@style/LayoutTagStyle"
+                    android:layout_width="wrap_content"
+                    android:text="@string/password"/>
+                <EditText
+                    style="@style/editViewStyle"
+                    android:inputType="numberPassword"
+                    android:id="@+id/res_factory_pwd"/>
+
+            </LinearLayout>
+
+
+
+            <Button
+                style="@style/ButtonStyle"
+                android:text="@string/button_confirm"
+                android:layout_marginTop="100dp"
+                android:id="@+id/button_res_factory"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

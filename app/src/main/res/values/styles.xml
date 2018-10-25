@@ -1,0 +1,167 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="mainStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">4.2</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="fragmentStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="menuStyle">
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">25dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:gravity">right</item>
+        <item name="android:layout_width">160dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="TitleStyle">
+        <item name="android:textSize">23dp</item>
+        <item name="android:textColor">#fee</item>
+        <item name="android:layout_width">900dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:paddingLeft">40dp</item>
+        <!--<item name="android:layout_gravity">center</item>-->
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_marginTop">5dp</item>
+
+    </style>
+
+    <style name="LayoutStyle">
+        <item name="android:layout_height">45dp</item>
+        <item name="android:layout_width">900dp</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:focusable">false</item>
+        <item name="android:background">@drawable/content_focus_selector</item>
+    </style>
+
+    <style name="LayoutTagStyle">
+        <item name="android:textColor">#fff</item>
+        <item name="android:textSize">23dp</item>
+        <item name="android:gravity">center_vertical|right</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
+    <style name="LayoutContentStyle">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">7</item>
+        <item name="android:textSize">23dp</item>
+        <item name="android:gravity">center_vertical|left</item>
+        <item name="android:focusable">false</item>
+        <item name="android:focusableInTouchMode">false</item>
+        <item name="android:textColor">#fff</item>
+
+
+    </style>
+
+    <style name="DividerStyle">
+        <item name="android:layout_width">900dp</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="RadioButtonStyle">
+
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginLeft">100dp</item>
+        <item name="android:textSize">23dp</item>
+        <item name="android:checked">true</item>
+    </style>
+
+    <style name="ButtonStyle">
+        <item name="android:layout_width">150dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:textSize">23dp</item>
+        <item name="android:background">@drawable/button_selector</item>
+    </style>
+
+    <!--网络设置->有线网络设置->静态IP下的样式-->
+    <style name="staticIpTagStyle">
+        <item name="android:layout_width">250dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:textSize">23dp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <style name="staticIpLinearLayoutStyle">
+        <item name="android:layout_width">550dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">10dp</item>
+    </style>
+
+    <!--所有EditView的样式-->
+
+    <style name="editViewStyle">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/editview_selector</item>
+        <item name="android:paddingLeft">10dp</item>
+    </style>
+
+    <!-- dialog activity 的所有样式-->
+    <!--文本样式-->
+    <style name="dialogTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">23dp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <!--内容布局样式-->
+    <style name="dialogLinearLayoutContentStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginLeft">50dp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:textSize">23dp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+    <!--按钮布局样式-->
+    <style name="dialogLinearLayoutButtonStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">50dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+    <!-- activity 样式-->
+    <style name="dialogStyle">
+        <item name="android:windowMinWidthMajor">300dp</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Dialog</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
+
+    <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+</resources>
