@@ -95,7 +95,7 @@
         <activity android:name=".DateFormatActivity" />
         <activity android:name=".DisplayActivity" />
         <activity android:name=".ResolutionActivity" />
-        <activity android:name=".OutputRegionActivity" />
+        <activity android:name=".ScaleActivity" />
         <activity android:name=".StorageActivity" />
         <activity
             android:name=".storage.UninstallDialog"

@@ -52,7 +52,7 @@ public class DisplayActivity extends AppCompatActivity
                 startActivity(intent);
                 break;
             case R.id.adjust_frame_output_region:
-                intent = new Intent(DisplayActivity.this, OutputRegionActivity.class);
+                intent = new Intent(DisplayActivity.this, ScaleActivity.class);
                 startActivity(intent);
                 break;
             default:
