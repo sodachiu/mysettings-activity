@@ -13,7 +13,7 @@ import java.util.List;
 
 public class myDateAdapter extends RecyclerView.Adapter<myDateAdapter.ViewHolder> {
 
-    List<DateFormat> mFormatList;
+    List<MyDateFormat> mFormatList;
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         TextView tvFormat;
@@ -25,7 +25,7 @@ public class myDateAdapter extends RecyclerView.Adapter<myDateAdapter.ViewHolder
             btnFormat = (Button) view.findViewById(R.id.datetime_btn_format);
         }
     }
-    public myDateAdapter(List<DateFormat> list){
+    public myDateAdapter(List<MyDateFormat> list){
         this.mFormatList = list;
     }
 
@@ -39,9 +39,9 @@ public class myDateAdapter extends RecyclerView.Adapter<myDateAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
-        DateFormat dateFormat = mFormatList.get(position);
-        holder.tvFormat.setText(dateFormat.getFormat());
-        if (dateFormat.getIsChecked()){
+        MyDateFormat myDateFormat = mFormatList.get(position);
+        holder.tvFormat.setText(myDateFormat.getFormat());
+        if (myDateFormat.getIsChecked()){
             holder.btnFormat.setBackgroundResource(R.drawable.checkbox_on);
         }else {
             holder.btnFormat.setBackgroundResource(R.drawable.checkbox_off);

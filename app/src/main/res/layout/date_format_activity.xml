@@ -24,30 +24,26 @@
                 style="@style/TitleStyle"
                 android:background="@drawable/background_title"/>
 
-            <android.support.v7.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/datetime_rv_date_formats"/>
-
 
             <LinearLayout
                 style="@style/LayoutStyle"
                 android:focusable="true"
-                android:id="@+id/date_format_1">
+                android:id="@+id/datetime_ll_format1">
 
-                <TextClock
+                <TextView
                     style="@style/LayoutTagStyle"
                     android:layout_weight="1"
                     android:gravity="center_vertical|start"
                     android:paddingLeft="100dp"
                     android:format12Hour="区域(yyyy-M-dd)"
-                    android:format24Hour="区域(yyyy-M-dd)"/>
-                <ImageView
+                    android:format24Hour="区域(yyyy-M-dd)"
+                    android:id="@+id/datetime_tv_format1"/>
+                <Button
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/checkbox_off"
-                    android:id="@+id/image_date_format_1"
+                    android:id="@+id/datetime_btn_format1"
                     android:layout_marginRight="10dp"/>
                 <!--此处给ImageView设定了初始图片，在代码中要改成动态设置-->
             </LinearLayout>
@@ -58,21 +54,23 @@
             <LinearLayout
                 style="@style/LayoutStyle"
                 android:focusable="true"
-                android:id="@+id/date_format_2">
+                android:id="@+id/datetime_ll_format2">
 
-                <TextClock
+
+            <TextView
                     style="@style/LayoutTagStyle"
                     android:layout_weight="1"
                     android:gravity="center_vertical|start"
                     android:paddingLeft="100dp"
-                    android:format12Hour="MM-dd-yyyy"
-                    android:format24Hour="MM-dd-yyyy"/>
-                <ImageView
+                    android:format12Hour="区域(yyyy-M-dd)"
+                    android:format24Hour="区域(yyyy-M-dd)"
+                    android:id="@+id/datetime_tv_format2"/>
+                <Button
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/checkbox_off"
-                    android:id="@+id/image_date_format_2"
+                    android:id="@+id/datetime_btn_format2"
                     android:layout_marginRight="10dp"/>
                 <!--此处给ImageView设定了初始图片，在代码中要改成动态设置-->
             </LinearLayout>
@@ -83,21 +81,23 @@
             <LinearLayout
                 style="@style/LayoutStyle"
                 android:focusable="true"
-                android:id="@+id/date_format_3">
+                android:id="@+id/datetime_ll_format3">
 
-                <TextClock
+
+            <TextView
                     style="@style/LayoutTagStyle"
                     android:layout_weight="1"
                     android:gravity="center_vertical|start"
                     android:paddingLeft="100dp"
-                    android:format12Hour="dd-MM-yyyy"
-                    android:format24Hour="dd-MM-yyyy"/>
-                <ImageView
+                    android:format12Hour="区域(yyyy-M-dd)"
+                    android:format24Hour="区域(yyyy-M-dd)"
+                    android:id="@+id/datetime_tv_format3"/>
+                <Button
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/checkbox_off"
-                    android:id="@+id/image_date_format_3"
+                    android:id="@+id/datetime_btn_format3"
                     android:layout_marginRight="10dp"/>
                 <!--此处给ImageView设定了初始图片，在代码中要改成动态设置-->
             </LinearLayout>
@@ -108,21 +108,22 @@
             <LinearLayout
                 style="@style/LayoutStyle"
                 android:focusable="true"
-                android:id="@+id/date_format_4">
+                android:id="@+id/datetime_ll_format4">
 
-                <TextClock
+            <TextView
                     style="@style/LayoutTagStyle"
                     android:layout_weight="1"
                     android:gravity="center_vertical|start"
                     android:paddingLeft="100dp"
-                    android:format12Hour="yyyy-MM-dd"
-                    android:format24Hour="yyyy-MM-dd"/>
-                <ImageView
+                    android:format12Hour="区域(yyyy-M-dd)"
+                    android:format24Hour="区域(yyyy-M-dd)"
+                    android:id="@+id/datetime_tv_format4"/>
+                <Button
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/checkbox_off"
-                    android:id="@+id/image_date_format_4"
+                    android:id="@+id/datetime_btn_format4"
                     android:layout_marginRight="10dp"/>
                 <!--此处给ImageView设定了初始图片，在代码中要改成动态设置-->
             </LinearLayout>

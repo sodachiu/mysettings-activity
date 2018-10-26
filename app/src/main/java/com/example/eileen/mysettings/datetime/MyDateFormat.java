@@ -1,10 +1,10 @@
 package com.example.eileen.mysettings.datetime;
 
-public class DateFormat {
+public class MyDateFormat {
     private String format;
     private boolean isChecked = false;
 
-    public DateFormat(String format){
+    public MyDateFormat(String format){
         this.format = format;
     }
 
