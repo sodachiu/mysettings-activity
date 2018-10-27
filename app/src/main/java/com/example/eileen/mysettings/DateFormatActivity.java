@@ -60,7 +60,7 @@ public class DateFormatActivity extends AppCompatActivity implements View.OnClic
 
         Intent intent = getIntent();
         int position = intent.getIntExtra("format_position", -1);
-        logUtil.LOGI("传过来的位置---->" + position);
+        logUtil.logi("传过来的位置---->" + position);
         mDateFormats = getResources().getStringArray(R.array.date_format);
         tvFormat1.setText("区域(" + formatDate(mDateFormats[0]) + ")");
         tvFormat2.setText(formatDate(mDateFormats[1]));
@@ -99,7 +99,7 @@ public class DateFormatActivity extends AppCompatActivity implements View.OnClic
 
         switch (position){
             case 0:
-                logUtil.LOGI("然后我进了0");
+                logUtil.logi("然后我进了0");
                 btnFormat1.setBackgroundResource(R.drawable.checkbox_on);
                 btnFormat2.setBackgroundResource(R.drawable.checkbox_off);
                 btnFormat3.setBackgroundResource(R.drawable.checkbox_off);
@@ -109,7 +109,7 @@ public class DateFormatActivity extends AppCompatActivity implements View.OnClic
                 mPosition = 0;
                 break;
             case 1:
-                logUtil.LOGI("然后我进了1");
+                logUtil.logi("然后我进了1");
                 btnFormat1.setBackgroundResource(R.drawable.checkbox_off);
                 btnFormat2.setBackgroundResource(R.drawable.checkbox_on);
                 btnFormat3.setBackgroundResource(R.drawable.checkbox_off);

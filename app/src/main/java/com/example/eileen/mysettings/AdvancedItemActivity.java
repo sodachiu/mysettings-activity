@@ -38,7 +38,7 @@ public class AdvancedItemActivity extends AppCompatActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.clear_all:
-                Intent intent = new Intent(AdvancedItemActivity.this, ClearAllActivity.class);
+                Intent intent = new Intent(AdvancedItemActivity.this, WipeCacheActivity.class);
                 startActivity(intent);
                 break;
             case R.id.standby_5_minutes:

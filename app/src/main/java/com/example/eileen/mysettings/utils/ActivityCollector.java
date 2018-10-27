@@ -1,4 +1,4 @@
-package com.example.eileen.mysettings;
+package com.example.eileen.mysettings.utils;
 
 import android.app.Activity;
 
@@ -10,6 +10,7 @@ public class ActivityCollector {
     public static List<Activity> activityList = new ArrayList<>();
 
     public static void addActivity(Activity activity){
+
         activityList.add(activity);
     }
 
@@ -26,10 +27,5 @@ public class ActivityCollector {
         activityList.clear();
     }
 
-    //获取当前活动
-    public static Activity getTopActivity(){
-        int lastIndex = activityList.size() - 1;
-        return activityList.get(lastIndex);
-    }
 
 }

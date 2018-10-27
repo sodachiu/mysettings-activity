@@ -9,16 +9,14 @@ public class LogUtil {
         TAG = tag;
     }
 
-    public void LOGI(String msLog)
+    public void logi(String msLog)
     {
 
         Log.i(TAG, msLog);
 
     }
 
-
-
-    public void LOGE(String msLog)
+    public void loge(String msLog)
     {
 
         Log.e(TAG, msLog);

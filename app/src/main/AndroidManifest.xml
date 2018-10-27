@@ -109,14 +109,15 @@
         <activity android:name=".AdvancedActivity" />
         <activity android:name=".ResetActivity" />
         <activity android:name=".AdvancedItemActivity" />
-        <activity android:name=".ClearAllActivity" />
+        <activity android:name=".WipeCacheActivity" />
         <activity
             android:name=".BluetoothDisconnectDialog"
             android:theme="@style/dialogStyle" />
 
         <service android:name=".PppoeConnectService" />
 
-        <activity android:name=".utils.BluetoothBondDialog"></activity>
+        <activity android:name=".utils.BluetoothBondDialog" />
+        <activity android:name=".utils.QuitActivity"></activity>
     </application>
 
 </manifest>

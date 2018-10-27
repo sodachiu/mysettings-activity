@@ -17,9 +17,10 @@ import com.example.eileen.mysettings.storage.StorageLog;
 import com.example.eileen.mysettings.storage.StorageUtils;
 import com.example.eileen.mysettings.storage.UninstallDialog;
 import com.example.eileen.mysettings.utils.ActivityId;
+import com.example.eileen.mysettings.utils.QuitActivity;
 
 
-public class StorageActivity extends AppCompatActivity
+public class StorageActivity extends QuitActivity
         implements View.OnKeyListener, View.OnClickListener{
 
     private TextView tvMenu;

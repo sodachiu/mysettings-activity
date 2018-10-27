@@ -32,12 +32,12 @@
                     style="@style/LayoutTagStyle"
                     android:layout_weight="1"
                     android:textAlignment="textStart"
-                    android:text="@string/alternative_to_clear"/>
+                    android:id="@+id/advanced_tv_cache_size"/>
                 <Button
                     style="@style/ButtonStyle"
                     android:text="@string/one_click_clean"
                     android:layout_marginEnd="60dp"
-                    android:id="@+id/button_clear_all"/>
+                    android:id="@+id/advanced_btn_wipe"/>
 
             </LinearLayout>
 

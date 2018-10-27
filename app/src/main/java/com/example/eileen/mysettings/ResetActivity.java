@@ -2,7 +2,6 @@ package com.example.eileen.mysettings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -11,9 +10,11 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.eileen.mysettings.utils.ActivityCollector;
 import com.example.eileen.mysettings.utils.ActivityId;
+import com.example.eileen.mysettings.utils.QuitActivity;
 
-public class ResetActivity extends AppCompatActivity
+public class ResetActivity extends QuitActivity
         implements View.OnClickListener, View.OnKeyListener{
 
     private static final int RES_FACTORY = 99;

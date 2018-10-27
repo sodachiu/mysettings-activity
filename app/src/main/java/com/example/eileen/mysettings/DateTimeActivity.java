@@ -19,12 +19,13 @@ import android.widget.TextView;
 
 import com.example.eileen.mysettings.utils.ActivityId;
 import com.example.eileen.mysettings.utils.LogUtil;
+import com.example.eileen.mysettings.utils.QuitActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class DateTimeActivity extends AppCompatActivity
+public class DateTimeActivity extends QuitActivity
 implements View.OnKeyListener, View.OnClickListener{
 
     private TextView tvMenu;
@@ -133,7 +134,7 @@ implements View.OnKeyListener, View.OnClickListener{
             String action = intent.getAction();
             if (!Intent.ACTION_TIME_TICK.equals(action) &&
                     !Intent.ACTION_TIME_CHANGED.equals(action)){
-                logUtil.LOGI(action + "不是正确的广播");
+                logUtil.logi(action + "不是正确的广播");
                 return;
             }
 

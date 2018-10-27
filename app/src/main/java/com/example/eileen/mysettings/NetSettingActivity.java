@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class NetSettingActivity extends AppCompatActivity
+import com.example.eileen.mysettings.utils.QuitActivity;
+
+public class NetSettingActivity extends QuitActivity
         implements View.OnClickListener, View.OnKeyListener{
 
     private static final String TAG = "NetSettingActivity";
@@ -31,10 +33,6 @@ public class NetSettingActivity extends AppCompatActivity
         llSetNet.setOnClickListener(this);
         llSetBluetooth.setOnClickListener(this);
         tvNetSetting.setOnKeyListener(this);
-
-        //測試了一下NetworkInformation類是否可用
-        /*NetworkInformation information = new NetworkInformation(getApplicationContext());
-        Log.d(TAG, "onCreate: " + information.getIpAddress());*/
 
 
     }

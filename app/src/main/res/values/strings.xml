@@ -90,7 +90,7 @@
 
     <!--######################高级设置下的所有单一使用的文本信息#########################-->
     <string name="one_click_clean">一键清理</string>
-    <string name="alternative_to_clear">可清理垃圾：20.00KB</string>
+    <string name="advanced_cache">可清理垃圾</string>
     <string name="set_sleep_function">休眠功能设置</string>
     <string name="minutes_to_sleep">电视机待机后，5分钟后机顶盒自动待机</string>
     <string name="hours_to_sleep">无遥控器操作，4小时候后机顶盒自动待机</string>

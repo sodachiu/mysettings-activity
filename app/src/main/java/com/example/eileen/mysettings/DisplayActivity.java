@@ -8,7 +8,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class DisplayActivity extends AppCompatActivity
+import com.example.eileen.mysettings.utils.QuitActivity;
+
+public class DisplayActivity extends QuitActivity
         implements View.OnClickListener, View.OnKeyListener{
     private TextView display;
     private LinearLayout setResolution;

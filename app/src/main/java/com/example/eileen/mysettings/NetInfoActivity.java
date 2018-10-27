@@ -15,7 +15,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class NetInfoActivity extends AppCompatActivity implements View.OnKeyListener{
+import com.example.eileen.mysettings.utils.QuitActivity;
+
+public class NetInfoActivity extends QuitActivity implements View.OnKeyListener{
 
     private static final String TAG = "NetInfoActivity";
     private TextView netInfo;

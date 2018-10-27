@@ -11,8 +11,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.eileen.mysettings.utils.QuitActivity;
 
-public class MainActivity extends AppCompatActivity implements View.OnKeyListener{
+
+public class MainActivity extends QuitActivity implements View.OnKeyListener{
 
     private static final String TAG = "myabout";
 

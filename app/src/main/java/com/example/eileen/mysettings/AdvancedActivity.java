@@ -10,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class AdvancedActivity extends AppCompatActivity
+import com.example.eileen.mysettings.utils.QuitActivity;
+
+public class AdvancedActivity extends QuitActivity
         implements View.OnClickListener, View.OnKeyListener{
 
     private static final String TAG = "AdvancedActivity";
