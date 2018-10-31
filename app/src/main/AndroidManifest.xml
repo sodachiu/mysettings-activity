@@ -117,7 +117,18 @@
         <service android:name=".PppoeConnectService" />
 
         <activity android:name=".utils.BluetoothBondDialog" />
-        <activity android:name=".utils.QuitActivity"></activity>
+        <activity android:name=".utils.QuitActivity" />
+        <activity
+            android:name=".StandbyDialog"
+            android:theme="@style/dialogStyle" />
+
+        <!--<receiver android:name=".MyReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="hdmi"
+            </intent-filter>
+        </receiver>-->
     </application>
 
 </manifest>

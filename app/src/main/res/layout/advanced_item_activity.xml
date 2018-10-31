@@ -55,12 +55,12 @@
                     android:gravity="center_vertical|left"
                     android:paddingLeft="100dp"
                     android:text="@string/minutes_to_sleep" />
-                <ImageView
+                <Button
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/checkbox_off"
-                    android:id="@+id/image_standby_minutes_state"
+                    android:id="@+id/advanced_btn_tv_standby"
                     android:layout_marginEnd="20dp"/>
             </LinearLayout>
                 <!--此处给ImageView设定了初始图片，在代码中要改成动态设置-->
@@ -78,12 +78,12 @@
                     android:gravity="center_vertical|left"
                     android:paddingLeft="100dp"
                     android:text="@string/hours_to_sleep" />
-                <ImageView
+                <Button
                     android:layout_height="wrap_content"
                     android:layout_width="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/checkbox_off"
-                    android:id="@+id/image_standby_hours_state"
+                    android:id="@+id/advanced_btn_self_standby"
                     android:layout_marginEnd="20dp"/>
             </LinearLayout>
             <!--此处给ImageView设定了初始图片，在代码中要改成动态设置-->

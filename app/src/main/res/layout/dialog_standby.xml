@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="600dp"
+    android:layout_height="400dp"
+    android:orientation="vertical"
+    android:background="@drawable/background_dialog">
+
+    <TextView
+        style="@style/dialogTextStyle"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="35dp"
+        android:text="@string/information" />
+
+    <LinearLayout
+        style="@style/dialogLinearLayoutContentStyle"
+        android:gravity="center_vertical">
+        <TextView
+            style="@style/dialogTextStyle"
+            android:text="@string/standby_warn_msg"/>
+        <TextView
+            style="@style/dialogTextStyle"
+            android:text=""
+            android:id="@+id/standby_tv_timer"/>
+    </LinearLayout>
+
+
+    <LinearLayout
+        style="@style/dialogLinearLayoutButtonStyle">
+
+        <Button
+            style="@style/ButtonStyle"
+            android:text="@string/advanced_str_not_standby"
+            android:id="@+id/advanced_btn_not_standby"/>
+
+    </LinearLayout>
+
+
+
+
+
+
+
+</LinearLayout>

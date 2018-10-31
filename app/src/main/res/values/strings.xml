@@ -94,6 +94,8 @@
     <string name="set_sleep_function">休眠功能设置</string>
     <string name="minutes_to_sleep">电视机待机后，5分钟后机顶盒自动待机</string>
     <string name="hours_to_sleep">无遥控器操作，4小时候后机顶盒自动待机</string>
+    <string name="advanced_str_not_standby">继续观看</string>
+    <string name="standby_warn_msg">因长时间未操作，系统将自动待机</string>
 
     <!--######################恢复出厂设置下的所有单一使用的文本信息#########################-->
     <string name="restore_machine">重置机顶盒</string>
