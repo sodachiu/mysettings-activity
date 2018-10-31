@@ -1,172 +1,99 @@
 package com.example.eileen.mysettings.advanced;
 
 import android.content.Context;
-import android.os.Environment;
 import android.text.format.Formatter;
 
-import com.example.eileen.mysettings.WipeCacheActivity;
 import com.example.eileen.mysettings.utils.LogUtil;
-
 import java.io.File;
 
 public class CacheManager {
 
 
-    private static LogUtil logUtil = new LogUtil("mycachemanager");
-    public static String getTotalCacheSize(Context context) throws Exception {
+    private LogUtil logUtil = new LogUtil("mywipe");
+    private Context mContext;
+    private File mRomFolder;
+    private File mExternalFolder;
 
-        long cacheSize = getFolderSize(context.getCacheDir());
+    public CacheManager(Context context){
 
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
-
-            cacheSize += getFolderSize(context.getExternalCacheDir());
-
-        }
-
-        return Formatter.formatFileSize(context, cacheSize);
-
+        this.mContext = context;
     }
 
-    public static void clearAllCache(Context context) {
+    public String getTotalCacheSize() {
+        String sCacheSize;
+        long cacheSize = 0;
 
-        try {
-            File romFile = context.getCacheDir();
-            File externalFile = context.getExternalCacheDir();
-            logUtil.logi("获取文件异常");
+        try{
+            mRomFolder = mContext.getCacheDir();
+            mExternalFolder = mContext.getExternalCacheDir();
+
+            cacheSize = getFolderSize(mRomFolder);
+            if (mExternalFolder != null) {
+                logUtil.logi("mExternalFolder 不为 null");
+                cacheSize += getFolderSize(mExternalFolder);
+            }
         }catch (Exception e){
-            logUtil.logi("clearAllCache 获取文件异常");
+            logUtil.loge("获取缓存文件夹异常");
         }
 
 
-        deleteDir(context.getCacheDir());
+        sCacheSize = Formatter.formatFileSize(mContext, cacheSize);
+        logUtil.logi("cache 总大小----" + cacheSize);
+        return sCacheSize;
 
-        if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
+    }
 
-            deleteDir(context.getExternalCacheDir());
+    public void clearCache() {
+        if (mRomFolder != null){
+            boolean romIsDelete = deleteDir(mRomFolder);
+            logUtil.logi("rom 删除结果" + romIsDelete);
+        }
 
+        if (mExternalFolder != null){
+            boolean sdcardIsDelete = deleteDir(mExternalFolder);
+            logUtil.logi("sdcard 删除结果" + sdcardIsDelete);
         }
 
     }
 
-    private static boolean deleteDir(File dir) {
 
-        if (dir != null && dir.isDirectory()) {
+    private static boolean deleteDir(File file) {
 
-            String[] children = dir.list();
+        if (file.isDirectory()) {
+
+            String[] children = file.list();
 
             for (int i = 0; i < children.length; i++) {
 
-                boolean success = deleteDir(new File(dir, children[i]));
+                boolean success = deleteDir(new File(file, children[i]));
                 if (!success) {
                     return false;
                 }
             }
         }
-        return dir.delete();
+        return file.delete();
     }
 
 
 
-    //格式化数据
-    /*public static String getFormatSize(double size) {
-
-        double kiloByte = size / 1024;
-
-        if (kiloByte < 1) {
-
-            return size + "Byte";
-
-        }
-
-        double megaByte = kiloByte / 1024;
-
-        if (megaByte < 1) {
-
-            BigDecimal result1 = new BigDecimal(Double.toString(kiloByte));
-
-            return result1.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "KB";
-
-        }
-
-        double gigaByte = megaByte / 1024;
-
-        if (gigaByte < 1) {
-
-            BigDecimal result2 = new BigDecimal(Double.toString(megaByte));
-
-            return result2.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "MB";
-
-        }
-
-        double teraBytes = gigaByte / 1024;
-
-        if (teraBytes < 1) {
-
-            BigDecimal result3 = new BigDecimal(Double.toString(gigaByte));
-
-            return result3.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "GB";
-
-        }
-
-        BigDecimal result4 = new BigDecimal(teraBytes);
-
-        return result4.setScale(2, BigDecimal.ROUND_HALF_UP).toPlainString() + "TB";
-
-    }*/
-
-
-    /*
-    * 获取缓存目录下的所有文件容量大小
-    * 参数 File file 为缓存目录
-    * 返回文件大小
-    *
-    * */
-    public static long getFolderSize(File file) throws Exception {
+    public long getFolderSize(File file) {
 
         long size = 0;
         try {
 
             File[] fileList = file.listFiles(); //获取缓存目录下所有文件和目录的绝对路径，返回file数组
 
-            for (int i = 0; i < fileList.length; i++) {
-                // 如果下面还有文件
-                if (fileList[i].isDirectory()) {
-                    size = size + getFolderSize(fileList[i]);
-                } else {
-                    size = size + fileList[i].length(); //获取文件大小
+            for (File item : fileList){
+                if (item.isDirectory()){
+                    getFolderSize(item);
+                }else {
+                    size += item.length();
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            logUtil.loge("CacheManager-getFolderSize() 出错----" + e.toString());
         }
 
         return size;
-    }
-
-//清理垃圾
-class ClearCache implements Runnable {
-
-    @Override
-
-    public void run() {
-
-        try {
-
-            WipeCacheActivity.CacheDataManager.clearAllCache(mContext);
-
-            Thread.sleep(1000);
-
-            if (WipeCacheActivity.CacheDataManager.getTotalCacheSize(mContext).startsWith("0")) {
-
-                mHandler.sendEmptyMessage(0);
-
-            }
-
-        } catch (Exception e) {
-
-            return;
-
-        }
-
     }
 }
