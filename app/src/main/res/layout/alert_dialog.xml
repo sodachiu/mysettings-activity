@@ -3,38 +3,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:text="提示"
-        android:textColor="@android:color/black"
-        android:textSize="25sp" />
-    <TextView
-        android:id="@+id/alertdialog_tv_warn_message"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
-        android:textColor="#434343"
-        android:textSize="20sp"
-        tools:text="提醒信息" />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/alertdialog_btn_continue"
-            style="@android:style/Theme.Dialog"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@null"
-            android:text="升级"
-            android:textColor="#45818e" />
+    android:orientation="vertical"
+    android:background="@drawable/cover">
 
+    <LinearLayout
+        android:layout_width="600dp"
+        android:layout_height="400dp"
+        android:background="@drawable/background_dialog"
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:orientation="vertical">
+        <TextView
+            style="@style/dialogTextStyle"
+            android:layout_marginTop="50dp"
+            android:layout_marginStart="35dp"
+            android:text="@string/information" />
+
+        <LinearLayout
+            style="@style/dialogLinearLayoutContentStyle"
+            android:orientation="vertical">
+            <TextView
+                style="@style/dialogTextStyle"
+                android:text="@string/standby_warn_msg"/>
+            <TextView
+                style="@style/dialogTextStyle"
+                android:textColor="#f00"
+                android:id="@+id/standby_tv_timer"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            style="@style/dialogLinearLayoutButtonStyle">
+
+            <Button
+                style="@style/ButtonStyle"
+                android:text="@string/advanced_str_not_standby"
+                android:id="@+id/standby_btn_cancel"/>
+
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

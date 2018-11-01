@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.eileen.mysettings">
+    package="com.example.eileen.mysettings"
+    android:sharedUserId="android.uid.system">
 
     <uses-permission android:name="android.permission.BROADCAST_STICKY" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -116,19 +117,25 @@
 
         <service android:name=".PppoeConnectService" />
 
-        <activity android:name=".utils.BluetoothBondDialog" />
         <activity android:name=".utils.QuitActivity" />
         <activity
             android:name=".StandbyDialog"
             android:theme="@style/dialogStyle" />
 
-        <!--<receiver android:name=".MyReceiver"
+        <receiver
+            android:name=".MyReceiver"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="hdmi"
+                <action android:name="com.cbox.action.autosleep" />
+                <action android:name="android.intent.action.ACTION_SHUTDOWN" />
             </intent-filter>
-        </receiver>-->
+        </receiver>
+
+        <service
+            android:name=".advanced.MyService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

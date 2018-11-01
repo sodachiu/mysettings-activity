@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.eileen.mysettings.advanced.MyService;
 import com.example.eileen.mysettings.advanced.StandbyDialog;
 import com.example.eileen.mysettings.utils.LogUtil;
 import com.hisilicon.android.hidisplaymanager.HiDisplayManager;
@@ -37,11 +38,11 @@ public class AdvancedItemActivity extends AppCompatActivity
     private Button btnSelfStandby;
     private HiDisplayManager mDisplayManager;
     private Context mContext;
-    private HiDisplayManager displayManager;
     private int mHdmiStatus;
     private String isSelfStandbyOpen;
     private int isTvStandbyOpen;
     private MyReceiver receiver;
+    private Intent intentService;
     private LogUtil logUtil = new LogUtil("advancedItemActivity");
 
     @Override
@@ -57,6 +58,7 @@ public class AdvancedItemActivity extends AppCompatActivity
         super.onResume();
         isSelfStandbyOpen = SystemProperties.get("persist.sys.suspend.noop");
         isTvStandbyOpen = mDisplayManager.getHDMISuspendEnable();
+        intentService = new Intent(this, MyService.class);
         if (isSelfStandbyOpen.equals("true")){
             btnSelfStandby.setBackgroundResource(R.drawable.checkbox_on);
         }else {
@@ -65,13 +67,12 @@ public class AdvancedItemActivity extends AppCompatActivity
 
         if (isTvStandbyOpen == 1){
             btnTvStandby.setBackgroundResource(R.drawable.checkbox_on);
+            startService(intentService);
         }else {
             btnTvStandby.setBackgroundResource(R.drawable.checkbox_off);
+            stopService(intentService);
         }
 
-        IntentFilter filter = new IntentFilter("com.cbox.action.autosleep");
-        receiver = new MyReceiver(AdvancedItemActivity.this);
-        registerReceiver(receiver, filter);
     }
 
     public void initView(){
@@ -102,12 +103,9 @@ public class AdvancedItemActivity extends AppCompatActivity
                 startActivity(intent);
                 break;
             case R.id.standby_5_minutes:
-                //用服务做
-
-
+                switchTvStandbyStatus();
                 break;
             case R.id.standby_4_hours:
-                //用服务做
                 switchSelfStandbyStatus();
                 break;
             default:
@@ -117,37 +115,37 @@ public class AdvancedItemActivity extends AppCompatActivity
 
     private void switchTvStandbyStatus() {
 
-        /*int isTvStandby = hdm.getHDMISuspendEnable();
+        int isTvStandby = mDisplayManager.getHDMISuspendEnable();
 
         if (isTvStandby == 1){
-            hdm.setHDMISuspendEnable(0);
             btnTvStandby.setBackgroundResource(R.drawable.checkbox_off);
+            mDisplayManager.setHDMISuspendEnable(0);
+            stopService(intentService);
+            logUtil.logi("switchTvStandbyStatus()----if模块执行完毕");
+
         }else {
-            hdm.setHDMISuspendEnable(1);
-            PowerManager pm =  (PowerManager) context.getSystemService(
-                    Context.POWER_SERVICE);
-            pm.goToSleep(1000);
-            logUtil.logi("我好像到了这里");
+
             btnTvStandby.setBackgroundResource(R.drawable.checkbox_on);
+            mDisplayManager.setHDMISuspendEnable(1);
+            startService(intentService);
+            logUtil.logi("switchTvStandbyStatus()----else模块执行完毕");
 
         }
-        //读取是否开启了功能，如果开启，那么进入开启逻辑，如果关闭，则不处理
-        mDisplayManager = new HiDisplayManager();
-        logUtil.logi( mDisplayManager.getFmt() + "hdmi线输出情况");
-    }*/
+
     }
 
     private void switchSelfStandbyStatus(){
         isSelfStandbyOpen = SystemProperties.get("persist.sys.suspend.noop");
-        logUtil.logi(isSelfStandbyOpen + "我在判断是否开启机顶盒自动待机");
         if (isSelfStandbyOpen.equals("true")){
             SystemProperties.set("persist.sys.suspend.noop", "false");
             btnSelfStandby.setBackgroundResource(R.drawable.checkbox_off);
+            logUtil.logi("我关闭了倒计时");
         }else {
             SystemProperties.set("persist.sys.suspend.noop", "true");
-            SystemProperties.set("persist.sys.suspend.noop.time", "12000");
+            SystemProperties.set("persist.sys.suspend.noop.time", "10");
+            String time = SystemProperties.get("persist.sys.suspend.noop.time");
             btnSelfStandby.setBackgroundResource(R.drawable.checkbox_on);
-
+            logUtil.logi("我打开了倒计时,现在倒计时需要的时间为" + time);
         }
 
     }

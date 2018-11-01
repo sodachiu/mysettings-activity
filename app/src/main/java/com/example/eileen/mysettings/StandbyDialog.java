@@ -3,14 +3,16 @@ package com.example.eileen.mysettings;
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.SystemProperties;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.eileen.mysettings.utils.LogUtil;
+
 public class StandbyDialog extends Activity implements View.OnClickListener{
     private Button btnContinue;
     private TextView tvTimer;
+    private LogUtil logUtil = new LogUtil("standbydialog");
 
     private static final int TOTAL_TIME = 60000;
     private static final int ONCE_TIME = 1000;
@@ -31,7 +33,7 @@ public class StandbyDialog extends Activity implements View.OnClickListener{
 
     public void onClick(View v){
         countDownTimer.cancel();
-        SystemProperties.set("persist.sys.suspend.noop", "false");
+//        SystemProperties.set("persist.sys.suspend.noop.time", "");
         finish();
     }
 

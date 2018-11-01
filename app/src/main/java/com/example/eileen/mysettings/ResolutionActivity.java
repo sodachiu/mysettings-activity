@@ -49,9 +49,6 @@ public class ResolutionActivity extends AppCompatActivity {
 
     protected void onResume(){
         super.onResume();
-
-//        Log.d(TAG, "onResume: onresume");
-
     }
 
     public void initResolutions(){
@@ -238,10 +235,10 @@ public class ResolutionActivity extends AppCompatActivity {
                 if (RESULT_OK == resultCode){
                     int oldStandardId = mCurrentStandardId;
                     mCurrentStandardId = data.getIntExtra("click_item_id", -1);
-
                     setDisplayStandard(oldStandardId);
 
-
+                }else {
+                    setDisplayStandard(mCurrentStandardId);
                 }
                 break;
             default:

@@ -41,8 +41,8 @@ public class StandbyDialog {
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         params.gravity = Gravity.CENTER;
         build.getWindow().setAttributes(params);
-        Button btnContinue = (Button) mView.findViewById(R.id.alertdialog_btn_continue);
-        TextView tvWarnMsg = (TextView) mView.findViewById(R.id.alertdialog_tv_warn_message);
+        Button btnContinue = (Button) mView.findViewById(R.id.standby_btn_cancel);
+        TextView tvWarnMsg = (TextView) mView.findViewById(R.id.standby_tv_timer);
         tvWarnMsg.setText(desc);
 
         btnContinue.setOnClickListener(new View.OnClickListener() {

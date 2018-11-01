@@ -170,15 +170,14 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
     public void onClick(View v){
         switch (v.getId()){
             case R.id.bluetooth_ll_switch_status:
-                BluetoothLog.LOGI(" 你点击我了");
                 if (mBluetoothAdapter.isEnabled()) {
 
                     btnBluetoothStatus.setBackgroundResource(R.drawable.checkbox_off);
                     mBluetoothAdapter.cancelDiscovery();
                     mBluetoothAdapter.disable();
 
-                    rvPairedDevices.setVisibility(View.GONE);
-                    rvUnpairedDevices.setVisibility(View.GONE);
+                    rvPairedDevices.setVisibility(View.INVISIBLE);
+                    rvUnpairedDevices.setVisibility(View.INVISIBLE);
                     BluetoothLog.LOGI("关闭蓝牙");
                 } else {
                     btnBluetoothStatus.setBackgroundResource(R.drawable.checkbox_on);
@@ -274,9 +273,9 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
                     return;
                 }
 
-                boolean inPairedDevices =  mUnpairedDevicesList.contains(foundDevice);
+                boolean inUnpairedDevices =  mUnpairedDevicesList.contains(foundDevice);
                 if (foundDevice.getBondState() != BluetoothDevice.BOND_BONDED
-                        && !inPairedDevices) {
+                        && !inUnpairedDevices) {
                     mUnpairedDevicesList.add(foundDevice);
                     mAdapter2.notifyItemInserted(mUnpairedDevicesList.size() - 1);
 
@@ -314,6 +313,9 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
         }
     }
 
+    /*
+    * 如果无配对或待配对的设备，则设置控件不可见
+    * */
     public void noItemToGone(){
         int pairedDevices = mPairedDevicesList.size();
         int unpairedDevices = mUnpairedDevicesList.size();
