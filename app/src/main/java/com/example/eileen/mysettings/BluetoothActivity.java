@@ -15,6 +15,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +24,7 @@ import com.example.eileen.mysettings.utils.ActivityId;
 import com.example.eileen.mysettings.bluetooth.BluetoothLog;
 import com.example.eileen.mysettings.bluetooth.PairedDevicesAdapter;
 import com.example.eileen.mysettings.bluetooth.UnPairedDevicesAdapter;
+import com.example.eileen.mysettings.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,9 +34,9 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
     private TextView netSetting;
     private Button btnBluetoothStatus;
     private LinearLayout llBluetoothSwitchStatus;
-    RecyclerView rvPairedDevices;
-    RecyclerView rvUnpairedDevices;
-
+    private RecyclerView rvPairedDevices;
+    private RecyclerView rvUnpairedDevices;
+    private LogUtil logUtil = new LogUtil("mybluetooth");
 
     private BluetoothAdapter mBluetoothAdapter;
     private Set<BluetoothDevice> mSetPairedDevices;
@@ -42,34 +45,18 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
     private PairedDevicesAdapter mAdapter1;
     private UnPairedDevicesAdapter mAdapter2;
     private MyBluetoothReceiver mReceiver;
-    public static final int START_DISCOVERY_ERROR = 0;
-    public static final int DISCOVERY_FINISHED = 1;
-
-    private Handler handler = new Handler(){
-        public void handleMesssage(Message msg){
-          switch (msg.what){
-              case START_DISCOVERY_ERROR:
-                  Toast.makeText(BluetoothActivity.this,
-                          "开启扫描失败",
-                          Toast.LENGTH_SHORT).show();
-                  break;
-              case DISCOVERY_FINISHED:
-                  Toast.makeText(BluetoothActivity.this,
-                          "扫描完成",
-                          Toast.LENGTH_SHORT).show();
-                  break;
-              default:
-                  break;
-          }
-      }
-
-    };
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bluetooth_activity);
+
+        initView();
+
+    }
+
+
+    private void initView(){
         btnBluetoothStatus = (Button) findViewById(R.id.bluetooth_btn_status);
         rvPairedDevices = (RecyclerView) findViewById(R.id.bluetooth_rv_paired_list);
         rvUnpairedDevices = (RecyclerView) findViewById(R.id.bluetooth_rv_unpaired_list);
@@ -79,13 +66,12 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(this);
 
-
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         if (mBluetoothAdapter == null){
             Toast.makeText(BluetoothActivity.this,
                     "此设备不支持蓝牙",
                     Toast.LENGTH_SHORT).show();
-            BluetoothLog.LOGI("该设备不支持蓝牙");
+            logUtil.logi("此设备不支持蓝牙");
             return;
         }
 
@@ -105,10 +91,10 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
         filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
         filter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
         filter.addAction(BluetoothDevice.ACTION_FOUND);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_STARTED);
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
         mReceiver = new MyBluetoothReceiver();
         registerReceiver(mReceiver, filter);
-
-
     }
 
     @Override
@@ -121,10 +107,8 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
             }
             refreshView(true);
         }else {
-
             btnBluetoothStatus.setBackgroundResource(R.drawable.checkbox_off);
             refreshView(false);
-
         }
     }
 
@@ -138,10 +122,10 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
 
         if (ActivityId.BLUETOOTH_ACTIVITY != requestCode){
-            BluetoothLog.LOGI("取消配对的 requestCode 有问题呢");
+            logUtil.logi("取消配对的requestCode有问题");
             return;
         }else if (resultCode == RESULT_CANCELED){
-            BluetoothLog.LOGI("用户取消了取消配对操作");
+            logUtil.logi("用户取消了取消配对的操作");
             return;
         }
         String deviceInfo = data.getStringExtra("device_info");
@@ -161,7 +145,7 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
             mPairedDevicesList.remove(position);
             remoteDevice.removeBond();
         }else {
-            BluetoothLog.LOGI("找不到匹配项");
+            logUtil.logi("找不到配对项");
 
         }
     }
@@ -178,14 +162,16 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
 
                     rvPairedDevices.setVisibility(View.INVISIBLE);
                     rvUnpairedDevices.setVisibility(View.INVISIBLE);
-                    BluetoothLog.LOGI("关闭蓝牙");
+                    mUnpairedDevicesList.clear();
+                    mPairedDevicesList.clear();
+                    logUtil.logi("执行了关闭蓝牙的操作");
                 } else {
                     btnBluetoothStatus.setBackgroundResource(R.drawable.checkbox_on);
                     mBluetoothAdapter.enable();
                     rvPairedDevices.setVisibility(View.VISIBLE);
                     rvUnpairedDevices.setVisibility(View.VISIBLE);
                     refreshView(true);
-                    BluetoothLog.LOGI("开启蓝牙");
+                    logUtil.logi("执行了开启蓝牙的操作");
                 }
         }
     }
@@ -197,6 +183,8 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
             rvUnpairedDevices.setVisibility(View.INVISIBLE);
             return;
         }
+
+        /*如果扫描模式不对，那就修改一下扫描模式*/
         if (mBluetoothAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE
                 &&
                 mBluetoothAdapter.getScanMode() != BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE
@@ -213,52 +201,38 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
         mAdapter2.notifyDataSetChanged();
     }
 
+
     class MyBluetoothReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
-            BluetoothLog.LOGI(action);
+            logUtil.logi("收到的广播为----" + action);
             if (BluetoothAdapter.ACTION_STATE_CHANGED.equals(action)) {
 
                 int state = intent.getIntExtra(BluetoothAdapter.EXTRA_STATE,
                         BluetoothAdapter.ERROR);
                 switch (state) {
                     case BluetoothAdapter.STATE_TURNING_OFF:
-                        BluetoothLog.LOGI("蓝牙正在关闭，尝试断开断开所有正常连接");
+                        logUtil.logi("蓝牙正在关闭，尝试断开所有正常连接");
                         //目前只做配对，不做连接，所以直接
-                        rvPairedDevices.setVisibility(View.GONE);
-                        rvUnpairedDevices.setVisibility(View.GONE);
+                        rvPairedDevices.setVisibility(View.INVISIBLE);
+                        rvUnpairedDevices.setVisibility(View.INVISIBLE);
                         break;
                     case BluetoothAdapter.STATE_OFF:
-                        BluetoothLog.LOGI("蓝牙处于关闭状态.");
+                        logUtil.logi("蓝牙处于关闭状态");
                         break;
                     case BluetoothAdapter.STATE_ON:
-                        BluetoothLog.LOGI("蓝牙已经开启,开启后才能使用适配器");
+                        logUtil.logi("蓝牙已经开启");
                         if (mBluetoothAdapter.isEnabled()) {
-                            BluetoothLog.LOGI("蓝牙开启，蓝牙适配器可用");
-                            new Thread(new Runnable() {
-                                Message message = new Message();
-                                @Override
-                                public void run() {
-                                    //启动扫描任务，
-                                    if (mBluetoothAdapter.isDiscovering()){
-                                        mBluetoothAdapter.cancelDiscovery();
-                                    }
-
-                                    boolean isDiscovery = mBluetoothAdapter.startDiscovery();
-
-                                    if (!isDiscovery){
-                                        message.what = START_DISCOVERY_ERROR;
-                                        handler.sendMessage(message);
-                                    }
-
-                                }
-                            }).start();
+                            logUtil.logi("蓝牙适配器可用");
+                            if (mBluetoothAdapter.isDiscovering()){
+                                mBluetoothAdapter.cancelDiscovery();
+                            }
+                            mBluetoothAdapter.startDiscovery();
                         } else {
-                            BluetoothLog.LOGI("蓝牙开启，但蓝牙适配器不可用");
+                            logUtil.loge("蓝牙开启，蓝牙适配器不可用");
                             mBluetoothAdapter.setScanMode(BluetoothAdapter.SCAN_MODE_CONNECTABLE, 86400000);
-                            BluetoothLog.LOGI("fail to enable mBluetoothAdapte");
                         }
                         break;
                     default:
@@ -269,10 +243,11 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
 
                 BluetoothDevice foundDevice = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 if (foundDevice == null) {
-                    BluetoothLog.LOGI("获取到的设备为空");
+                    logUtil.logi("获取到的设备为空");
                     return;
                 }
 
+                logUtil.logi("发现新设备");
                 boolean inUnpairedDevices =  mUnpairedDevicesList.contains(foundDevice);
                 if (foundDevice.getBondState() != BluetoothDevice.BOND_BONDED
                         && !inUnpairedDevices) {
@@ -285,45 +260,33 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
                 switch (device.getBondState()) {
                     case BluetoothDevice.BOND_BONDING://正在配对
-                        BluetoothLog.LOGI("正在配对");
-
+                        logUtil.logi("正在配对");
+                        Toast.makeText(BluetoothActivity.this,
+                                "正在配对",
+                                Toast.LENGTH_SHORT).show();
                         break;
                     case BluetoothDevice.BOND_BONDED://配对结束
-
 
                         mUnpairedDevicesList.remove(device);
                         mPairedDevicesList.add(device);
                         mAdapter1.notifyDataSetChanged();
                         mAdapter2.notifyDataSetChanged();
-                        Toast.makeText(BluetoothActivity.this,
-                                "配对成功！",
-                                Toast.LENGTH_SHORT).show();
-                        noItemToGone();
-
                         break;
                     case BluetoothDevice.BOND_NONE://取消配对/未配对
                         mPairedDevicesList.remove(device);
                         mAdapter1.notifyDataSetChanged();
-                        noItemToGone();
                     default:
                         break;
                 }
 
+            }else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)){
+                logUtil.logi("开始搜索设备");
+                Toast.makeText(BluetoothActivity.this,
+                        "正在搜索设备",
+                        Toast.LENGTH_SHORT).show();
+            }else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)){
+                logUtil.logi("搜索完成");
             }
-        }
-    }
-
-    /*
-    * 如果无配对或待配对的设备，则设置控件不可见
-    * */
-    public void noItemToGone(){
-        int pairedDevices = mPairedDevicesList.size();
-        int unpairedDevices = mUnpairedDevicesList.size();
-        if (pairedDevices == 0){
-            rvPairedDevices.setVisibility(View.INVISIBLE);
-        }
-        if (unpairedDevices == 0){
-            rvUnpairedDevices.setVisibility(View.INVISIBLE);
         }
     }
 }

@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.eileen.mysettings.utils.ActivityCollector;
+import com.example.eileen.mysettings.utils.LogUtil;
 import com.example.eileen.mysettings.utils.QuitActivity;
 
 public class NetInfoActivity extends QuitActivity implements View.OnKeyListener{
@@ -27,8 +29,7 @@ public class NetInfoActivity extends QuitActivity implements View.OnKeyListener{
     private EditText dns1;
     private EditText dns2;
     private NetworkChangeReceiver networkChangeReceiver;
-
-
+    private LogUtil logUtil = new LogUtil("mynetinfo");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,8 @@ public class NetInfoActivity extends QuitActivity implements View.OnKeyListener{
         dns1 = (EditText) findViewById(R.id.dns1);
         dns2 = (EditText) findViewById(R.id.dns2);
 
+        dns1.setSelectAllOnFocus(true);
+        dns2.setSelectAllOnFocus(true);
         netInfo.setFocusable(true);
         netInfo.setBackgroundResource(R.drawable.menu_focus_selector);
         netInfo.setOnKeyListener(this);

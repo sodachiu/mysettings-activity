@@ -103,7 +103,7 @@ implements View.OnKeyListener, View.OnClickListener{
 
         if (is24hFormat){
             btnUse24hFormat.setBackgroundResource(R.drawable.checkbox_on);
-            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
             sTime =  timeFormat.format(nowDate.getTime());
         }else {
             btnUse24hFormat.setBackgroundResource(R.drawable.checkbox_off);

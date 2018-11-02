@@ -20,6 +20,7 @@ public class StandbyDialog {
     private Activity mActivity;
     private View mView;
     LogUtil logUtil = new LogUtil("myalertdialog");
+
     public StandbyDialog(String desc, Context context){
         logUtil.logi("我进了构造函数");
         this.desc = desc;
@@ -28,7 +29,6 @@ public class StandbyDialog {
         this.mActivity = (Activity) mContext;
         this.mView = mActivity.getLayoutInflater().inflate(R.layout.alert_dialog, null);
         build.setView(mView, 0, 0, 0, 0);
-
 
     }
 

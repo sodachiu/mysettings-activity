@@ -3,7 +3,7 @@ package com.example.eileen.mysettings;
 public class Resolution {
     private String name;
     private int id;
-    private boolean ischecked = false;
+    private boolean isChecked = false;
 
     public Resolution(String name, int id){
         this.name = name;
@@ -19,10 +19,10 @@ public class Resolution {
     }
 
     public void setIschecked(boolean ischecked) {
-        this.ischecked = ischecked;
+        this.isChecked = ischecked;
     }
 
     public boolean getIsChecked(){
-        return this.ischecked;
+        return this.isChecked;
     }
 }

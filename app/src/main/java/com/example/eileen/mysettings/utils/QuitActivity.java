@@ -11,7 +11,6 @@ public class QuitActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        logUtil = new LogUtil("myquitactivity");
         ActivityCollector.addActivity(this);
     }
 
@@ -21,7 +20,6 @@ public class QuitActivity extends AppCompatActivity {
         if (keyCode != KeyEvent.KEYCODE_BACK){
             return false;
         }
-        logUtil.logi("按下了返回键");
         ActivityCollector.finishAll();
         return false;
     }
