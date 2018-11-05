@@ -13,10 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.eileen.mysettings.storage.StorageLog;
 import com.example.eileen.mysettings.storage.StorageUtils;
 import com.example.eileen.mysettings.storage.UninstallDialog;
 import com.example.eileen.mysettings.utils.ActivityId;
+import com.example.eileen.mysettings.utils.LogUtil;
 import com.example.eileen.mysettings.utils.QuitActivity;
 
 
@@ -32,13 +32,15 @@ public class StorageActivity extends QuitActivity
 
     private MediaReceiver mediaReceiver;
     private Context mContext;
-    private StorageUtils utils;
+    private int devCount = 1;
+
+    private LogUtil logUtil = new LogUtil("mystorage");
 
     private static final String MEDIA_EJECT = "android.intent.action.MEDIA_EJECT";
     private static final String MEDIA_MOUNTED = "android.intent.action.MEDIA_MOUNTED";
     private static final String MEDIA_UNMOUNTED = "android.intent.action.MEDIA_UNMOUNTED";
     private static final String PATH1 = "/mnt/sda/sda1";
-    private static final String PATH2 = "/mnt/sda/sdb1";
+    private static final String PATH2 = "/mnt/sdb/sdb1";
     private static boolean path1Exists = false;
     private static boolean path2Exists = false;
 
@@ -46,19 +48,7 @@ public class StorageActivity extends QuitActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.storage_activity);
-        tvMenu = (TextView) findViewById(R.id.store_info);
-        llUninstall = (LinearLayout) findViewById(R.id.storage_unmount);
-        tvTotal = (TextView) findViewById(R.id.storage_tv_total);
-        tvTotalDevices1 = (TextView) findViewById(R.id.storage_tv_devices_count1);
-        tvAlt = (TextView) findViewById(R.id.storage_tv_available);
-        tvTotalDevices2 = (TextView) findViewById(R.id.storage_tv_devices_count2);
-        mContext = getApplicationContext();
-
-
-        tvMenu.setFocusable(true);
-        tvMenu.setBackgroundResource(R.drawable.menu_focus_selector);
-        tvMenu.setOnKeyListener(this);
-        llUninstall.setOnClickListener(this);
+        initView();
 
         IntentFilter filter = new IntentFilter();
         filter.addAction(MEDIA_EJECT); //物理拔出打开状态的sd卡
@@ -71,6 +61,22 @@ public class StorageActivity extends QuitActivity
 
 
     }
+
+    private void initView(){
+        tvMenu = (TextView) findViewById(R.id.store_info);
+        llUninstall = (LinearLayout) findViewById(R.id.storage_unmount);
+        tvTotal = (TextView) findViewById(R.id.storage_tv_total);
+        tvTotalDevices1 = (TextView) findViewById(R.id.storage_tv_devices_count1);
+        tvAlt = (TextView) findViewById(R.id.storage_tv_available);
+        tvTotalDevices2 = (TextView) findViewById(R.id.storage_tv_devices_count2);
+        mContext = getApplicationContext();
+
+        tvMenu.setFocusable(true);
+        tvMenu.setBackgroundResource(R.drawable.menu_focus_selector);
+        tvMenu.setOnKeyListener(this);
+        llUninstall.setOnClickListener(this);
+    }
+
 
     @Override
     protected void onResume(){
@@ -87,51 +93,53 @@ public class StorageActivity extends QuitActivity
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
+
+        logUtil.logi("onActivity()");
         if (requestCode != ActivityId.STORE_INFO_ACTIVITY){
-            Toast.makeText(mContext, "存储信息位置返回的值不对", Toast.LENGTH_SHORT).show();
-        }else {
-            StorageLog.LOGI("我进来了吗");
-            switch (resultCode){
-                case RESULT_OK:
-
-                    if (path1Exists){
-                        try {
-                            utils.unMount(PATH1);
-                            StorageLog.LOGI("卸载设备1成功");
-
-                        }catch (Exception e){
-                            StorageLog.LOGI(e.getMessage());
-                            StorageLog.LOGI("卸载设备1失败");
-                        }
-                    }
-
-                    if (path2Exists){
-                        try {
-                            utils.unMount(PATH2);
-                            StorageLog.LOGI("卸载设备2成功");
-
-                        }catch (Exception e){
-                            StorageLog.LOGI("卸载设备2失败");
-                            StorageLog.LOGI(e.getMessage());
-                        }
-                    }
-
-                    break;
-                case RESULT_CANCELED:
-                    StorageLog.LOGI("取消卸载操作");
-                    break;
-                default:
-                    break;
-            }
+            Toast.makeText(mContext,
+                    "onActivityResult() 返回值有误",
+                    Toast.LENGTH_SHORT).show();
+            return;
         }
+
+        switch (resultCode){
+            case RESULT_OK:
+                if (path1Exists){
+                    try {
+                        StorageUtils.unMount(PATH1);
+                        logUtil.logi("设备1卸载成功");
+
+                    }catch (Exception e){
+                        logUtil.loge("设备1卸载失败---->" + e.toString());
+                    }
+                }
+
+                if (path2Exists){
+                    try {
+                        StorageUtils.unMount(PATH2);
+                        logUtil.logi("设备2卸载成功");
+
+                    }catch (Exception e){
+                        logUtil.loge("设备2卸载失败---->" + e.toString());
+                    }
+                }
+                break;
+            case RESULT_CANCELED:
+                logUtil.logi("取消卸载操作");
+                break;
+            default:
+                break;
+        }
+
     }
 
     class MediaReceiver extends BroadcastReceiver{
 
         @Override
         public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            logUtil.logi("接受到的广播为---->" + action);
             refreshView();
-
         }
     }
 
@@ -139,8 +147,22 @@ public class StorageActivity extends QuitActivity
 
     @Override
     public void onClick(View v){
-        Intent intent = new Intent(StorageActivity.this, UninstallDialog.class);
-        startActivityForResult(intent, ActivityId.STORE_INFO_ACTIVITY);
+        switch (v.getId()){
+            case R.id.storage_unmount:
+                if (devCount == 1){
+                    Toast.makeText(StorageActivity.this,
+                            "没有挂载外部设备",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Intent intent = new Intent(StorageActivity.this,
+                        UninstallDialog.class);
+                startActivityForResult(intent, ActivityId.STORE_INFO_ACTIVITY);
+                break;
+            default:
+                break;
+        }
+
     }
 
     @Override
@@ -166,31 +188,31 @@ public class StorageActivity extends QuitActivity
     }
 
     public void refreshView(){
-        int devCount = 1;
+        logUtil.logi("refreshView()");
+        devCount = 1;
         long totalSize = 0;
         long availableSize = 0;
 
-        path1Exists = utils.fileIsExists(PATH1);
-        path2Exists = utils.fileIsExists(PATH2);
+        path1Exists = StorageUtils.fileIsExists(PATH1);
+        path2Exists = StorageUtils.fileIsExists(PATH2);
 
-
-        totalSize += utils.getRomTotalSize();
-        availableSize += utils.getRomAvailableSize();
+        totalSize += StorageUtils.getRomTotalSize();
+        availableSize += StorageUtils.getRomAvailableSize();
         if(path1Exists){
             ++devCount;
-            totalSize += utils.getExternalTotalSize(PATH1);
-            availableSize += utils.getExternalAvailableSize(PATH1);
+            totalSize += StorageUtils.getExternalTotalSize(PATH1);
+            availableSize += StorageUtils.getExternalAvailableSize(PATH1);
         }
         if (path2Exists){
             ++devCount;
-            totalSize += utils.getExternalTotalSize(PATH2);
-            availableSize += utils.getExternalAvailableSize(PATH2);
+            totalSize += StorageUtils.getExternalTotalSize(PATH2);
+            availableSize += StorageUtils.getExternalAvailableSize(PATH2);
         }
 
 
         String sTotalSize = Formatter.formatFileSize(mContext, totalSize);
         String sAvailableSize = Formatter.formatFileSize(mContext, availableSize);
-        String totalDev = "存储设备个数为： " + devCount;
+        String totalDev = getResources().getString(R.string.storage_devices_count) + devCount;
         tvTotalDevices1.setText(totalDev);
         tvTotalDevices2.setText(totalDev);
         tvTotal.setText(sTotalSize);

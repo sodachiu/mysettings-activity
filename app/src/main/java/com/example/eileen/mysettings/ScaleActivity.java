@@ -27,6 +27,7 @@ public class ScaleActivity extends AppCompatActivity {
         logUtil = new LogUtil("myscale");
         logUtil.logi("onCreate()");
         mDisplayManager = new HiDisplayManager();
+
         Rect rect = mDisplayManager.getGraphicOutRange(); //获取当前不可视区域
         horizontal_margin = rect.left;
         vertical_margin = rect.top;

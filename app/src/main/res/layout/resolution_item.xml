@@ -3,11 +3,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <RadioButton
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/resolution_radio_button"
         android:layout_marginTop="10dp"
-        style="@style/LayoutStyle"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="150dp"
+        style="@style/LayoutTagStyle"
+        android:gravity="center_vertical|start"
+        android:background="@drawable/content_focus_selector"
         android:focusable="true"/>
 
 </LinearLayout>

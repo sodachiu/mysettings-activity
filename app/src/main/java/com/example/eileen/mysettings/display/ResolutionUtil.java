@@ -11,7 +11,7 @@ import java.util.List;
 public class ResolutionUtil {
 
     private static List<Resolution> mResolutionList;
-    private static final int DISPLAY_ADAPTIVE = 111222;
+    public static final int DISPLAY_ADAPTIVE = 111222;
     public static List<Resolution> initResolutionList(DisplayManager displayManager){
         mResolutionList = new ArrayList<>();
         int[] allSupportStandards = displayManager.getAllSupportStandards();

@@ -1,6 +1,7 @@
-package com.example.eileen.mysettings;
+package com.example.eileen.mysettings.display;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,15 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
-import android.widget.Toast;
+import android.os.display.DisplayManager;
+import com.example.eileen.mysettings.R;
+import com.example.eileen.mysettings.Resolution;
+import com.example.eileen.mysettings.ResolutionDialogActivity;
+import com.example.eileen.mysettings.utils.LogUtil;
 
 import java.util.List;
 
 public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.ViewHolder>{
 
-    private static final String TAG = "ResolutionAdapter";
     private List<Resolution> mResolutionList;
-//    private static boolean mResolutionIsChecked = false;
+    private LogUtil logUtil = new LogUtil("mydisplay");
 
     static class ViewHolder extends RecyclerView.ViewHolder{
         RadioButton radioButton;
@@ -26,11 +30,6 @@ public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.Vi
             radioButton = (RadioButton) view.findViewById(R.id.resolution_radio_button);
 
         }
-
-        /*public void setItemIsChecked(boolean checked){
-            mResolutionIsChecked = checked;
-
-        }*/
     }
 
     public ResolutionAdapter(List<Resolution> resolutionList){
@@ -49,13 +48,24 @@ public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.Vi
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 Resolution resolution = mResolutionList.get(position);
-//                Log.d(TAG, "onClick: " + resolution);
-                Toast.makeText(v.getContext(), resolution.getName(), Toast.LENGTH_SHORT).show();
+
+                DisplayManager displayManager = (DisplayManager) view.getContext()
+                        .getSystemService(Context.DISPLAY_MANAGER_SERVICE);
+
+                int oldStandard = displayManager.getCurrentStandard();
+                int standardId = resolution.getId();
+                if (standardId == ResolutionUtil.DISPLAY_ADAPTIVE){
+                    displayManager.setDisplayStandard(DisplayManager.DISPLAY_STANDARD_1080P_60);
+                }else {
+                    displayManager.setDisplayStandard(standardId);
+                }
+
+                logUtil.logi("当前分辨率为----" + resolution.getName());
+                resolution.setIschecked(true);
                 Activity activity = (Activity) view.getContext();
-//                Log.d(TAG, "onClick: " + activity);
                 Intent intent = new Intent(activity, ResolutionDialogActivity.class);
-                intent.putExtra("click_item_id", resolution.getId());
-                activity.startActivityForResult(intent, ResolutionActivity.RESOLUTION_ACTIVITY);
+                intent.putExtra("old_standard_id", oldStandard);
+                activity.startActivity(intent);
             }
         });
         return holder;
@@ -75,11 +85,6 @@ public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.Vi
     public int getItemCount(){
         return mResolutionList.size();
     }
-
-    /*@Override
-    public void notifyDataSetChange(){
-        super();
-    }*/
 
 
 }

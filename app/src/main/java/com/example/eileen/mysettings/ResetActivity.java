@@ -52,12 +52,6 @@ public class ResetActivity extends QuitActivity
     }
 
 
-    /*@Override
-    protected void onDestroy(){
-        super.onDestroy();
-        ActivityCollector.finishAll();
-    }*/
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data){
 
@@ -117,16 +111,6 @@ public class ResetActivity extends QuitActivity
 
             }
 
-            /*switch (keyCode){
-                case KeyEvent.KEYCODE_DPAD_UP:
-                    password.setFocusable(false);
-                    confirm.setFocusable(false);
-                    Intent intent = new Intent(ResetActivity.this, AdvancedActivity.class);
-                    startActivity(intent);
-                    break;
-                default:
-                    break;
-            }*/
         }
         return false;
     }

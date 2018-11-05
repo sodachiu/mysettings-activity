@@ -77,7 +77,7 @@ public class AdvancedActivity extends QuitActivity
 
         if (event.getAction() == KeyEvent.ACTION_DOWN){
 
-            Intent intent = new Intent();
+            Intent intent;
             switch (keyCode){
                 case KeyEvent.KEYCODE_DPAD_DOWN:
                     mBtnConfirm.setFocusable(false);

@@ -16,109 +16,129 @@
         <include layout="@layout/menu_include" />
 
         <LinearLayout
-            style="@style/fragmentStyle"
-            android:id="@+id/layout_net_info">
+            android:id="@+id/layout_net_info"
+            style="@style/fragmentStyle">
 
             <TextView
-                android:text="@string/network_information"
                 style="@style/TitleStyle"
-                android:background="@drawable/background_title"/>
+                android:background="@drawable/background_title"
+                android:text="@string/network_information" />
 
-            <LinearLayout
-                style="@style/LayoutStyle">
+            <LinearLayout style="@style/LayoutStyle">
+
                 <TextView
                     style="@style/LayoutTagStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="@string/ip_address"/>
+                    android:text="@string/ip_address" />
+
                 <TextView
-                    android:text="@string/net_default_text"
+                    android:id="@+id/netinfo_tv_ip"
                     style="@style/LayoutContentStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:id="@+id/ip_addr"/>
+                    android:text="@string/net_default_text" />
             </LinearLayout>
+
             <ImageView
                 style="@style/DividerStyle"
-                android:background="@drawable/background_divider"/>
+                android:background="@drawable/background_divider" />
 
 
-            <LinearLayout
-                style="@style/LayoutStyle">
+            <LinearLayout style="@style/LayoutStyle">
+
                 <TextView
                     style="@style/LayoutTagStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="@string/subnet_mask"/>
+                    android:text="@string/subnet_mask" />
+
                 <TextView
-                    android:text="@string/net_default_text"
+                    android:id="@+id/netinfo_tv_mask"
                     style="@style/LayoutContentStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:id="@+id/net_mask"/>
+                    android:text="@string/net_default_text" />
             </LinearLayout>
+
             <ImageView
                 style="@style/DividerStyle"
-                android:background="@drawable/background_divider"/>
+                android:background="@drawable/background_divider" />
 
-            <LinearLayout
-                style="@style/LayoutStyle">
+            <LinearLayout style="@style/LayoutStyle">
+
                 <TextView
                     style="@style/LayoutTagStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="@string/default_gateway"/>
+                    android:text="@string/default_gateway" />
 
                 <TextView
-                    android:text="@string/net_default_text"
+                    android:id="@+id/netinfo_tv_gateway"
                     style="@style/LayoutContentStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:id="@+id/gateway"/>
+                    android:text="@string/net_default_text" />
             </LinearLayout>
+
             <ImageView
                 style="@style/DividerStyle"
-                android:background="@drawable/background_divider"/>
+                android:background="@drawable/background_divider" />
 
-            <LinearLayout
-                style="@style/LayoutStyle">
+            <LinearLayout style="@style/LayoutStyle">
+
                 <TextView
                     style="@style/LayoutTagStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="@string/main_dns"/>
+                    android:text="@string/main_dns" />
+
                 <EditText
-                    android:text="@string/net_default_text"
+                    android:id="@+id/netinfo_et_dns1"
                     style="@style/LayoutContentStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:focusable="true"
                     android:background="@null"
-                    android:id="@+id/dns1"/>
+                    android:focusable="true"
+                    android:text="@string/net_default_text" />
             </LinearLayout>
+
             <ImageView
                 style="@style/DividerStyle"
-                android:background="@drawable/background_divider"/>
+                android:background="@drawable/background_divider" />
 
-            <LinearLayout
-                style="@style/LayoutStyle">
+            <LinearLayout style="@style/LayoutStyle">
+
                 <TextView
                     style="@style/LayoutTagStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:text="@string/backup_dns"/>
+                    android:text="@string/backup_dns" />
+
                 <EditText
-                    android:text="@string/net_default_text"
+                    android:id="@+id/netinfo_et_dns2"
                     style="@style/LayoutContentStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:focusable="true"
                     android:background="@null"
-                    android:id="@+id/dns2"/>
+                    android:focusable="true"
+                    android:text="@string/net_default_text" />
             </LinearLayout>
+
             <ImageView
                 style="@style/DividerStyle"
-                android:background="@drawable/background_divider"/>
+                android:background="@drawable/background_divider" />
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:gravity="center_horizontal|bottom">
+
+                <Button
+                    android:id="@+id/netinfo_btn_confirm"
+                    style="@style/ButtonStyle"
+                    android:text="@string/button_confirm" />
+            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

@@ -168,6 +168,9 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
                 } else {
                     btnBluetoothStatus.setBackgroundResource(R.drawable.checkbox_on);
                     mBluetoothAdapter.enable();
+                    Toast.makeText(BluetoothActivity.this,
+                            "正在搜索设备",
+                            Toast.LENGTH_SHORT).show();
                     rvPairedDevices.setVisibility(View.VISIBLE);
                     rvUnpairedDevices.setVisibility(View.VISIBLE);
                     refreshView(true);
@@ -281,9 +284,7 @@ public class BluetoothActivity extends AppCompatActivity implements View.OnClick
 
             }else if (BluetoothAdapter.ACTION_DISCOVERY_STARTED.equals(action)){
                 logUtil.logi("开始搜索设备");
-                Toast.makeText(BluetoothActivity.this,
-                        "正在搜索设备",
-                        Toast.LENGTH_SHORT).show();
+
             }else if (BluetoothAdapter.ACTION_DISCOVERY_FINISHED.equals(action)){
                 logUtil.logi("搜索完成");
             }

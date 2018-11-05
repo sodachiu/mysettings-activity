@@ -49,7 +49,7 @@ public class MyReceiver  extends BroadcastReceiver{
 
 
     public void handleStandby(){
-        logUtil.logi("我进了handleStandby");
+        logUtil.logi("handleStandby()");
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View view = inflater.inflate(R.layout.alert_dialog, null);
         Button btnCancel = (Button) view.findViewById(R.id.standby_btn_cancel);
