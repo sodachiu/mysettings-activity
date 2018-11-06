@@ -79,7 +79,6 @@ public class StorageUtils {
         long blockSize = stat.getBlockSizeLong();
         long availableBlocks = stat.getAvailableBlocksLong();
         return blockSize * availableBlocks;
-        //return Formatter.formatFileSize(mContext, freeSize);
     }
 
     /**

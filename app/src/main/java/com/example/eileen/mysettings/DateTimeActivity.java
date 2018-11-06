@@ -7,6 +7,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.media.videoeditor.Transition;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateFormat;
 import android.util.Log;
@@ -72,8 +73,8 @@ implements View.OnKeyListener, View.OnClickListener{
         tvMenu.setBackgroundResource(R.drawable.menu_focus_selector);
         tvMenu.setOnKeyListener(this);
 
-        String sServer1 = android.provider.Settings.Secure.getString(getContentResolver(), "ntp_server");
-        String sServer2 = android.provider.Settings.Secure.getString(getContentResolver(), "ntp_server2");
+        String sServer1 = Settings.Secure.getString(getContentResolver(), "ntp_server");
+        String sServer2 = Settings.Secure.getString(getContentResolver(), "ntp_server2");
 
         if (sServer1 == null){
             sServer1 = "";
@@ -134,7 +135,7 @@ implements View.OnKeyListener, View.OnClickListener{
             String action = intent.getAction();
             if (!Intent.ACTION_TIME_TICK.equals(action) &&
                     !Intent.ACTION_TIME_CHANGED.equals(action)){
-                logUtil.logi(action + "不是正确的广播");
+                logUtil.logi( "不是正确得广播---->" + action);
                 return;
             }
 

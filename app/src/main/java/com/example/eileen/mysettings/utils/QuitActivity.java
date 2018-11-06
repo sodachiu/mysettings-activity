@@ -16,6 +16,7 @@ public class QuitActivity extends AppCompatActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event){
+        logUtil.logi("用户按下了代码为---->" + keyCode + "的按键");
 
         if (keyCode != KeyEvent.KEYCODE_BACK){
             return false;

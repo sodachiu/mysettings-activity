@@ -102,7 +102,7 @@
             android:name=".storage.UninstallDialog"
             android:theme="@style/dialogStyle" />
         <activity
-            android:name=".ResFactoryDialogActivity"
+            android:name=".ResetDialogActivity"
             android:theme="@style/dialogStyle" />
         <activity
             android:name=".ResolutionDialogActivity"
@@ -135,7 +135,13 @@
         <service
             android:name=".advanced.MyService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <provider
+            android:name=".utils.MyContentProvider"
+            android:authorities="com.example.eileen.mysettings.provider"
+            android:enabled="true"
+            android:exported="true"></provider>
     </application>
 
 </manifest>
