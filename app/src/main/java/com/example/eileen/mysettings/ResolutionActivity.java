@@ -8,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.TextView;
 
+import com.example.eileen.mysettings.display.Resolution;
 import com.example.eileen.mysettings.display.ResolutionAdapter;
 import com.example.eileen.mysettings.display.ResolutionUtil;
 import com.example.eileen.mysettings.utils.LogUtil;
@@ -23,10 +24,13 @@ public class ResolutionActivity extends AppCompatActivity {
     private LogUtil logUtil = new LogUtil("mydisplay");
 
     private DisplayManager mDisplayManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.resolution_activity);
+
+
         tvMenu = (TextView) findViewById(R.id.display);
         tvMenu.setBackgroundResource(R.drawable.menu_item_select);
         Context context = getApplicationContext();
@@ -40,11 +44,28 @@ public class ResolutionActivity extends AppCompatActivity {
 
     }
 
+    @Override
     protected void onResume(){
         super.onResume();
         mResolutionList.clear();
         mResolutionList = ResolutionUtil.initResolutionList(mDisplayManager);
         mAdapter = new ResolutionAdapter(mResolutionList);
         mRecyclerView.setAdapter(mAdapter);
+
+        mRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                int position = 0;
+                for (Resolution item : mResolutionList){
+                    if (item.getIsChecked()){
+                        position = mResolutionList.indexOf(item);
+                    }
+                }
+                mRecyclerView.scrollToPosition(position);
+                mAdapter.notifyItemChanged(position);
+                logUtil.logi("焦点位置为---->" + position);
+
+            }
+        });
     }
 }

@@ -109,7 +109,7 @@
             android:theme="@style/dialogStyle" />
         <activity android:name=".AdvancedActivity" />
         <activity android:name=".ResetActivity" />
-        <activity android:name=".AdvancedItemActivity" />
+        <activity android:name=".AdvancedActivity2" />
         <activity android:name=".WipeCacheActivity" />
         <activity
             android:name=".BluetoothDisconnectDialog"
@@ -126,14 +126,19 @@
             android:name=".MyReceiver"
             android:enabled="true"
             android:exported="true">
-            <intent-filter>
+            <intent-filter android:priority="100">
                 <action android:name="com.cbox.action.autosleep" />
                 <action android:name="android.intent.action.ACTION_SHUTDOWN" />
             </intent-filter>
         </receiver>
 
-        <service
+        <!--<service
             android:name=".advanced.MyService"
+            android:enabled="true"
+            android:exported="true" />-->
+
+        <service
+            android:name=".advanced.StandbyService"
             android:enabled="true"
             android:exported="true" />
 
@@ -141,7 +146,9 @@
             android:name=".utils.MyContentProvider"
             android:authorities="com.example.eileen.mysettings.provider"
             android:enabled="true"
-            android:exported="true"></provider>
+            android:exported="true">
+
+        </provider>
     </application>
 
 </manifest>

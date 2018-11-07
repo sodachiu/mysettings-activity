@@ -2,26 +2,23 @@ package com.example.eileen.mysettings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.eileen.mysettings.utils.LogUtil;
 import com.example.eileen.mysettings.utils.QuitActivity;
 
 public class AdvancedActivity extends QuitActivity
         implements View.OnClickListener, View.OnKeyListener{
 
-    private static final String TAG = "AdvancedActivity";
-
     private Button mBtnConfirm;
     private EditText mEtPassword;
     private TextView mTvPromptInfo;
-
     private TextView advanced;
+    private LogUtil logUtil = new LogUtil("myadvanced");
 
 
     @Override
@@ -39,6 +36,8 @@ public class AdvancedActivity extends QuitActivity
 
         advanced.setOnKeyListener(this);
         mBtnConfirm.setOnClickListener(this);
+
+
 
     }
 
@@ -59,11 +58,12 @@ public class AdvancedActivity extends QuitActivity
     @Override
     public void onClick(View v){
         String pwdText = mEtPassword.getText().toString();
-        Log.d(TAG, "onClick: " + pwdText);
+        logUtil.logi("用户输入密码---->" + pwdText);
 
         // 拿到系统密码，与之对比
         if (pwdText.equals("10086") ){
-            Intent intent = new Intent(AdvancedActivity.this, AdvancedItemActivity.class);
+            Intent intent = new Intent(AdvancedActivity.this,
+                    AdvancedActivity2.class);
             startActivity(intent);
 
         }else {
@@ -95,7 +95,5 @@ public class AdvancedActivity extends QuitActivity
         }
         return false;
     }
-
-
 
 }

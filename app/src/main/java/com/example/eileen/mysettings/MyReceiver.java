@@ -24,6 +24,8 @@ public class MyReceiver  extends BroadcastReceiver{
 
     private static final int TOTAL_TIME = 60000;
     private static final int ONCE_TIME = 1000;
+    private static final String AUTO_SLEEP = "com.cbox.action.autosleep";
+    private static final String ACTION_SHUTDOWN = "android.intent.action.ACTION_SHUTDOWN";
 
     private TextView tvTimer;
 
@@ -33,13 +35,13 @@ public class MyReceiver  extends BroadcastReceiver{
     public void onReceive(Context context, Intent intent) {
         mContext = context;
         String action = intent.getAction();
-        logUtil.logi(action + "我收到的广播");
 
-        if (action.equals("com.cbox.action.autosleep")){
-            logUtil.logi("我进了待机广播处理中心");
+        if (action.equals(AUTO_SLEEP)){
+            logUtil.logi("收到广播，四小时没有任何操作，执行待机");
             handleStandby();
-        }else if (action.equals("android.intent.action.ACTION_SHUTDOWN")){
-            logUtil.logi("我收到了电视机待机的广播");
+
+        }else if (action.equals(ACTION_SHUTDOWN)){
+            logUtil.logi("收到了电视机待机的广播，立即执行待机操作");
             PowerManager pm = (PowerManager) mContext.getSystemService(Context.POWER_SERVICE);
             pm.goToSleep(SystemClock.uptimeMillis());
         }

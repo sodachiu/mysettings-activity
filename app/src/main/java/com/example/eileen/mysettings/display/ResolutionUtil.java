@@ -1,17 +1,22 @@
 package com.example.eileen.mysettings.display;
 
-import android.content.Context;
 import android.os.display.DisplayManager;
-
-import com.example.eileen.mysettings.Resolution;
 
 import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class ResolutionUtil {
 
     private static List<Resolution> mResolutionList;
     public static final int DISPLAY_ADAPTIVE = 111222;
+
+    /*
+    * 返回可支持的所有分辨率
+    * required----> DisplayManager
+    * return----> List<Resolution>
+    * */
     public static List<Resolution> initResolutionList(DisplayManager displayManager){
         mResolutionList = new ArrayList<>();
         int[] allSupportStandards = displayManager.getAllSupportStandards();
@@ -27,7 +32,7 @@ public class ResolutionUtil {
                     Resolution display1080P60Hz = new Resolution("1080P 60Hz",
                             DisplayManager.DISPLAY_STANDARD_1080P_60);
                     if (DisplayManager.DISPLAY_STANDARD_1080P_60 == currentStandard){
-                        display1080P60Hz.setIschecked(true);
+                        display1080P60Hz.setChecked(true);
                     }
                     mResolutionList.add(display1080P60Hz);
                     break;
@@ -35,7 +40,7 @@ public class ResolutionUtil {
                     Resolution display1080P50Hz = new Resolution("1080P 50Hz",
                             DisplayManager.DISPLAY_STANDARD_1080P_50);
                     if (DisplayManager.DISPLAY_STANDARD_1080P_50 == currentStandard){
-                        display1080P50Hz.setIschecked(true);
+                        display1080P50Hz.setChecked(true);
                     }
                     mResolutionList.add(display1080P50Hz);
                     break;
@@ -43,7 +48,7 @@ public class ResolutionUtil {
                     Resolution display1080P30Hz = new Resolution("1080P 30Hz",
                             DisplayManager.DISPLAY_STANDARD_1080P_30);
                     if (DisplayManager.DISPLAY_STANDARD_1080P_30 == currentStandard){
-                        display1080P30Hz.setIschecked(true);
+                        display1080P30Hz.setChecked(true);
                     }
                     mResolutionList.add(display1080P30Hz);
                     break;
@@ -51,7 +56,7 @@ public class ResolutionUtil {
                     Resolution display1080P25Hz = new Resolution("1080P 25Hz",
                             DisplayManager.DISPLAY_STANDARD_1080P_25);
                     if (DisplayManager.DISPLAY_STANDARD_1080P_25 == currentStandard){
-                        display1080P25Hz.setIschecked(true);
+                        display1080P25Hz.setChecked(true);
                     }
                     mResolutionList.add(display1080P25Hz);
                     break;
@@ -65,7 +70,7 @@ public class ResolutionUtil {
                     Resolution display1080i60Hz = new Resolution("1080i 60Hz",
                             DisplayManager.DISPLAY_STANDARD_1080I_60);
                     if (DisplayManager.DISPLAY_STANDARD_1080I_60 == currentStandard){
-                        display1080i60Hz.setIschecked(true);
+                        display1080i60Hz.setChecked(true);
                     }
                     mResolutionList.add(display1080i60Hz);
                     break;
@@ -73,7 +78,7 @@ public class ResolutionUtil {
                     Resolution display1080i50Hz = new Resolution("1080i 50Hz",
                             DisplayManager.DISPLAY_STANDARD_1080I_50);
                     if (DisplayManager.DISPLAY_STANDARD_1080I_50 == currentStandard){
-                        display1080i50Hz.setIschecked(true);
+                        display1080i50Hz.setChecked(true);
                     }
                     mResolutionList.add(display1080i50Hz);
                     break;
@@ -81,7 +86,7 @@ public class ResolutionUtil {
                     Resolution display720p60Hz = new Resolution("720P 60Hz",
                             DisplayManager.DISPLAY_STANDARD_720P_60);
                     if (DisplayManager.DISPLAY_STANDARD_720P_60 == currentStandard){
-                        display720p60Hz.setIschecked(true);
+                        display720p60Hz.setChecked(true);
                     }
                     mResolutionList.add(display720p60Hz);
                     break;
@@ -89,7 +94,7 @@ public class ResolutionUtil {
                     Resolution display720p50Hz = new Resolution("720P 50Hz",
                             DisplayManager.DISPLAY_STANDARD_720P_50);
                     if (DisplayManager.DISPLAY_STANDARD_720P_50 == currentStandard){
-                        display720p50Hz.setIschecked(true);
+                        display720p50Hz.setChecked(true);
                     }
                     mResolutionList.add(display720p50Hz);
                     break;
@@ -97,7 +102,7 @@ public class ResolutionUtil {
                     Resolution display480p60Hz = new Resolution("480P 60Hz",
                             DisplayManager.DISPLAY_STANDARD_480P_60);
                     if (DisplayManager.DISPLAY_STANDARD_480P_60 == currentStandard){
-                        display480p60Hz.setIschecked(true);
+                        display480p60Hz.setChecked(true);
                     }
                     mResolutionList.add(display480p60Hz);
                     break;
@@ -105,7 +110,7 @@ public class ResolutionUtil {
                     Resolution displayPal = new Resolution("PAL",
                             DisplayManager.DISPLAY_STANDARD_PAL);
                     if (DisplayManager.DISPLAY_STANDARD_PAL == currentStandard){
-                        displayPal.setIschecked(true);
+                        displayPal.setChecked(true);
                     }
                     mResolutionList.add(displayPal);
                     break;
@@ -113,7 +118,7 @@ public class ResolutionUtil {
                     Resolution displayNtsc = new Resolution("NTSL",
                             DisplayManager.DISPLAY_STANDARD_NTSC);
                     if (DisplayManager.DISPLAY_STANDARD_NTSC == currentStandard){
-                        displayNtsc.setIschecked(true);
+                        displayNtsc.setChecked(true);
                     }
                     mResolutionList.add(displayNtsc);
                     break;
@@ -121,7 +126,7 @@ public class ResolutionUtil {
                     Resolution display3840x2160p24Hz = new Resolution("3840 x 2160P 24Hz",
                             DisplayManager.DISPLAY_STANDARD_3840_2160P_24);
                     if (DisplayManager.DISPLAY_STANDARD_3840_2160P_24 == currentStandard){
-                        display3840x2160p24Hz.setIschecked(true);
+                        display3840x2160p24Hz.setChecked(true);
                     }
                     mResolutionList.add(display3840x2160p24Hz);
                     break;
@@ -129,7 +134,7 @@ public class ResolutionUtil {
                     Resolution display3840x2160p25Hz = new Resolution("3840 x 2160P 25Hz",
                             DisplayManager.DISPLAY_STANDARD_3840_2160P_25);
                     if (DisplayManager.DISPLAY_STANDARD_3840_2160P_25 == currentStandard){
-                        display3840x2160p25Hz.setIschecked(true);
+                        display3840x2160p25Hz.setChecked(true);
                     }
                     mResolutionList.add(display3840x2160p25Hz);
                     break;
@@ -137,7 +142,7 @@ public class ResolutionUtil {
                     Resolution display3840x2160p30Hz = new Resolution("3840 x 2160P 30Hz",
                             DisplayManager.DISPLAY_STANDARD_3840_2160P_30);
                     if (DisplayManager.DISPLAY_STANDARD_3840_2160P_30 == currentStandard){
-                        display3840x2160p30Hz.setIschecked(true);
+                        display3840x2160p30Hz.setChecked(true);
                     }
                     mResolutionList.add(display3840x2160p30Hz);
                     break;
@@ -145,7 +150,7 @@ public class ResolutionUtil {
                     Resolution display3840x2160p60Hz = new Resolution("3840 x 2160P 60Hz",
                             DisplayManager.DISPLAY_STANDARD_3840_2160P_60);
                     if (DisplayManager.DISPLAY_STANDARD_3840_2160P_60 == currentStandard){
-                        display3840x2160p60Hz.setIschecked(true);
+                        display3840x2160p60Hz.setChecked(true);
                     }
                     mResolutionList.add(display3840x2160p60Hz);
                     break;
@@ -153,7 +158,7 @@ public class ResolutionUtil {
                     Resolution display4096x2160p24Hz = new Resolution("4096 x 2160P 60Hz",
                             DisplayManager.DISPLAY_STANDARD_4096_2160P_24);
                     if (DisplayManager.DISPLAY_STANDARD_4096_2160P_24 == currentStandard){
-                        display4096x2160p24Hz.setIschecked(true);
+                        display4096x2160p24Hz.setChecked(true);
                     }
                     mResolutionList.add(display4096x2160p24Hz);
                     break;
@@ -161,7 +166,7 @@ public class ResolutionUtil {
                     Resolution display4096x2160p25Hz = new Resolution("4096 x 2160P 25Hz",
                             DisplayManager.DISPLAY_STANDARD_4096_2160P_25);
                     if (display4096x2160p25Hz.getId() == currentStandard){
-                        display4096x2160p25Hz.setIschecked(true);
+                        display4096x2160p25Hz.setChecked(true);
                     }
                     mResolutionList.add(display4096x2160p25Hz);
                     break;
@@ -169,7 +174,7 @@ public class ResolutionUtil {
                     Resolution display4096x2160p30Hz = new Resolution("4096 x 2160P 30Hz",
                             DisplayManager. DISPLAY_STANDARD_4096_2160P_30);
                     if (display4096x2160p30Hz.getId() == currentStandard){
-                        display4096x2160p30Hz.setIschecked(true);
+                        display4096x2160p30Hz.setChecked(true);
                     }
                     mResolutionList.add(display4096x2160p30Hz);
                     break;
@@ -177,7 +182,7 @@ public class ResolutionUtil {
                     Resolution display4096x2160p60Hz = new Resolution("4096 x 2160P 60Hz",
                             DisplayManager.DISPLAY_STANDARD_4096_2160P_60);
                     if (display4096x2160p60Hz.getId() == currentStandard){
-                        display4096x2160p60Hz.setIschecked(true);
+                        display4096x2160p60Hz.setChecked(true);
                     }
                     mResolutionList.add(display4096x2160p60Hz);
                     break;

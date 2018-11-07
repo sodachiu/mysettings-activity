@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.KeyEvent;
 
 public class QuitActivity extends AppCompatActivity {
-    private LogUtil logUtil;
+    private LogUtil logUtil = new LogUtil("quitactivity");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

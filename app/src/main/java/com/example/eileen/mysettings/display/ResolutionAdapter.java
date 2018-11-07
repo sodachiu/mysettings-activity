@@ -7,11 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.os.display.DisplayManager;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import com.example.eileen.mysettings.R;
-import com.example.eileen.mysettings.Resolution;
 import com.example.eileen.mysettings.ResolutionDialogActivity;
 import com.example.eileen.mysettings.utils.LogUtil;
 
@@ -23,11 +25,15 @@ public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.Vi
     private LogUtil logUtil = new LogUtil("mydisplay");
 
     static class ViewHolder extends RecyclerView.ViewHolder{
-        RadioButton radioButton;
+        ImageView imgItem;
+        TextView tvItem;
+        LinearLayout llItem;
 
         public ViewHolder(View view){
             super(view);
-            radioButton = (RadioButton) view.findViewById(R.id.resolution_radio_button);
+            imgItem = (ImageView) view.findViewById(R.id.resolution_img_item);
+            tvItem = (TextView) view.findViewById(R.id.resolution_tv_item);
+            llItem = (LinearLayout) view.findViewById(R.id.resolution_ll_item);
 
         }
     }
@@ -43,11 +49,18 @@ public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.Vi
         final View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.resolution_item, parent, false);
         final ViewHolder holder = new ViewHolder(view);
-        holder.radioButton.setOnClickListener(new View.OnClickListener() {
+        holder.llItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int position = holder.getAdapterPosition();
                 Resolution resolution = mResolutionList.get(position);
+
+                if (resolution.getId() == ResolutionUtil.DISPLAY_ADAPTIVE){
+                    Toast.makeText(view.getContext(),
+                            "功能开发中",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 DisplayManager displayManager = (DisplayManager) view.getContext()
                         .getSystemService(Context.DISPLAY_MANAGER_SERVICE);
@@ -61,7 +74,7 @@ public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.Vi
                 }
 
                 logUtil.logi("当前分辨率为----" + resolution.getName());
-                resolution.setIschecked(true);
+                resolution.setChecked(true);
                 Activity activity = (Activity) view.getContext();
                 Intent intent = new Intent(activity, ResolutionDialogActivity.class);
                 intent.putExtra("old_standard_id", oldStandard);
@@ -74,9 +87,18 @@ public class ResolutionAdapter extends RecyclerView.Adapter<ResolutionAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position){
         Resolution resolution = mResolutionList.get(position);
-        holder.radioButton.setText(resolution.getName());
-        holder.radioButton.setId(resolution.getId());
-        holder.radioButton.setChecked(resolution.getIsChecked());
+        boolean isChecked = resolution.getIsChecked();
+
+        if (isChecked){
+            holder.imgItem.setImageResource(R.drawable.radio_checked_normal);
+            holder.llItem.requestFocus();
+            logUtil.logi("ResolutionAdapter:需要焦点的位置为---->" + position);
+        }else {
+            holder.imgItem.setImageResource(R.drawable.radio_unchecked_normal);
+        }
+
+        holder.tvItem.setText(resolution.getName());
+
         ViewGroup.LayoutParams layoutParams = holder.itemView.getLayoutParams();
         layoutParams.height = LinearLayout.LayoutParams.WRAP_CONTENT;
     }

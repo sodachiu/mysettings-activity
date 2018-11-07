@@ -22,7 +22,6 @@ public class ResetActivity extends QuitActivity
     private EditText password;
     private Button confirm;
     private LogUtil logUtil = new LogUtil("myreset");
-    private static final String MASTER_CLEAR = "android.intent.action.MASTER_CLEAR";
 
 
     @Override

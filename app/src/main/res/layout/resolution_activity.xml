@@ -26,8 +26,8 @@
 
             <android.support.v7.widget.RecyclerView
                 android:layout_width="900dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
                 android:id="@+id/resolution_recycler_view">
 
             </android.support.v7.widget.RecyclerView>

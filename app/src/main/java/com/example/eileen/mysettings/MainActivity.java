@@ -13,8 +13,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
 
+import com.example.eileen.mysettings.advanced.StandbyService;
 import com.example.eileen.mysettings.utils.LogUtil;
 import com.example.eileen.mysettings.utils.QuitActivity;
+import com.hisilicon.android.hidisplaymanager.HiDisplayManager;
 
 
 public class MainActivity extends QuitActivity implements View.OnKeyListener{
@@ -31,15 +33,20 @@ public class MainActivity extends QuitActivity implements View.OnKeyListener{
 
         initView();
         logUtil.logi("完成oncreate()");
-    }
 
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
+        //启动自动待机服务
+        HiDisplayManager hdm = new HiDisplayManager();
+        int powerStandbyIsOpen = hdm.getHDMISuspendEnable();
+        if (powerStandbyIsOpen == 1){
+            Intent intent = new Intent(this, StandbyService.class);
+            startService(intent);
+        }
+
     }
 
 
     private void initView(){
+        logUtil.logi("MainActivity---->initView()");
         tvMenu = (TextView) findViewById(R.id.my_info);
         tvDeviceModel = (TextView) findViewById(R.id.about_tv_model);
         tvSoftRelease = (TextView) findViewById(R.id.about_tv_software);
@@ -56,13 +63,13 @@ public class MainActivity extends QuitActivity implements View.OnKeyListener{
         tvMenu.setOnKeyListener(this);
         tvMenu.setBackgroundResource(R.drawable.menu_focus_selector);
         initValue();
-        logUtil.logi("完成initView()");
     }
 
 
     @Override
     public boolean onKey(View v, int keyCode, KeyEvent event) {
         if (event.getAction() == KeyEvent.ACTION_DOWN){
+            logUtil.logi("MainActivity--->onKey()");
             switch (keyCode){
                 case KeyEvent.KEYCODE_DPAD_DOWN:
                     Intent intent = new Intent(MainActivity.this, NetSettingActivity.class);
@@ -78,6 +85,7 @@ public class MainActivity extends QuitActivity implements View.OnKeyListener{
 
 
     public void initValue(){
+        logUtil.logi("MainActivity--->initValue()");
         String sModel = SystemProperties.get("ro.product.model"); //硬件产品品牌型号
         String sSoftware = SystemProperties.get("ro.build.version.incremental"); //软件版本
         String sAndroid = SystemProperties.get("ro.build.version.release"); //安卓版本
@@ -93,7 +101,6 @@ public class MainActivity extends QuitActivity implements View.OnKeyListener{
         Cursor cursor;
 
         try{
-            logUtil.logi("我进了try模块");
             cursor = getApplicationContext().getContentResolver().query(tableAuth,
                     null, null, null, null);
 
@@ -133,7 +140,6 @@ public class MainActivity extends QuitActivity implements View.OnKeyListener{
         tvTerminalAddr1.setText(sTerminal1);
         tvTerminalAddr2.setText(sTerminal2);
         tvAccount.setText(sAccout);
-        logUtil.logi("我完成了initValue()");
 
     }
 
