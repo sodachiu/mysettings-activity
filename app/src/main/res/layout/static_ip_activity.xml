@@ -16,92 +16,141 @@
         <include layout="@layout/menu_include" />
 
         <LinearLayout
-            style="@style/fragmentStyle"
-            android:id="@+id/layout_static_ip">
+            android:id="@+id/static_layout"
+            style="@style/fragmentStyle">
 
             <TextView
-                android:text="@string/static_ip_title"
                 style="@style/TitleStyle"
-                android:background="@drawable/background_title"/>
+                android:background="@drawable/background_title"
+                android:text="@string/set_static_ip" />
 
-            <LinearLayout
-                style="@style/staticIpLinearLayoutStyle"
-                android:layout_marginTop="50dp">
+            <LinearLayout style="@style/LayoutStyle">
+
                 <TextView
                     style="@style/LayoutTagStyle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:text="@string/ip_address" />
-                <EditText
-                    style="@style/editViewStyle"
-                    android:id="@+id/ip_addr" />
 
+                <EditText
+                    android:id="@+id/static_et_ip"
+                    style="@style/LayoutContentStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:text="@string/net_default_text" />
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/staticIpLinearLayoutStyle">
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider" />
+
+
+            <LinearLayout style="@style/LayoutStyle">
+
                 <TextView
                     style="@style/LayoutTagStyle"
-                    android:layout_width="wrap_content"
-                    android:text="@string/subnet_mask"/>
-                <EditText
-                    style="@style/editViewStyle"
-                    android:id="@+id/static_subnet_mask"/>
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/subnet_mask" />
 
+                <EditText
+                    android:id="@+id/static_et_mask"
+                    style="@style/LayoutContentStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:text="@string/net_default_text" />
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/staticIpLinearLayoutStyle">
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider" />
+
+            <LinearLayout style="@style/LayoutStyle">
+
                 <TextView
                     style="@style/LayoutTagStyle"
-                    android:layout_width="wrap_content"
-                    android:text="@string/default_gateway"/>
-                <EditText
-                    style="@style/editViewStyle"
-                    android:id="@+id/static_default_gateway" />
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/default_gateway" />
 
+                <EditText
+                    android:id="@+id/static_et_gateway"
+                    style="@style/LayoutContentStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:text="@string/net_default_text" />
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/staticIpLinearLayoutStyle">
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider" />
+
+            <LinearLayout style="@style/LayoutStyle">
+
                 <TextView
                     style="@style/LayoutTagStyle"
-                    android:layout_width="wrap_content"
-                    android:text="@string/main_dns"/>
-                <EditText
-                    style="@style/editViewStyle"
-                    android:id="@+id/static_main_DNS" />
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/main_dns" />
 
+                <EditText
+                    android:id="@+id/static_et_dns1"
+                    style="@style/LayoutContentStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:text="@string/net_default_text" />
             </LinearLayout>
 
-            <LinearLayout
-                style="@style/staticIpLinearLayoutStyle">
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider" />
+
+            <LinearLayout style="@style/LayoutStyle">
+
                 <TextView
                     style="@style/LayoutTagStyle"
-                    android:layout_width="wrap_content"
-                    android:text="@string/backup_dns"/>
-                <EditText
-                    style="@style/editViewStyle"
-                    android:id="@+id/static_backup_DNS"/>
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:text="@string/backup_dns" />
 
+                <EditText
+                    android:id="@+id/static_et_dns2"
+                    style="@style/LayoutContentStyle"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:focusable="true"
+                    android:text="@string/net_default_text" />
             </LinearLayout>
 
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider" />
+
             <LinearLayout
-                style="@style/staticIpLinearLayoutStyle"
-                android:gravity="center_vertical|end">
+                style="@style/LayoutStyle"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal|bottom">
 
                 <Button
+                    android:id="@+id/static_btn_confirm"
                     style="@style/ButtonStyle"
-                    android:text="@string/button_confirm"
+                    android:text="@string/button_confirm" />
 
-                    android:id="@+id/static_ip_confirm" />
                 <Button
+                    android:id="@+id/static_btn_cancel"
                     style="@style/ButtonStyle"
-                    android:layout_marginLeft="20dp"
-
-                    android:text="@string/button_cancel"
-                    android:id="@+id/static_ip_cancel" />
-
+                    android:text="@string/button_cancel" />
             </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

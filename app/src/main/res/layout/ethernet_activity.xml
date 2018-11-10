@@ -28,15 +28,41 @@
             <LinearLayout
                 style="@style/LayoutStyle"
                 android:focusable="true"
-                android:id="@+id/pppoe_container">
-                <RadioButton
+                android:id="@+id/eth_ll_pppoe">
+                <ImageView
                     style="@style/RadioButtonStyle"
-                    android:text="@string/set_pppoe"
-                    android:id="@+id/pppoe_radiobutton"/>
+                    android:id="@+id/eth_img_pppoe"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eth_pppoe"/>
                 <TextView
                     style="@style/LayoutContentStyle"
                     android:layout_weight="1"
-                    android:id="@+id/pppoe_state"/>
+                    android:id="@+id/eth_tv_pppoe_connect"/>
+
+            </LinearLayout>
+
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider"/>
+
+            <LinearLayout
+                style="@style/LayoutStyle"
+                android:focusable="true"
+                android:id="@+id/eth_ll_dhcp">
+                <ImageView
+                    style="@style/RadioButtonStyle"
+                    android:id="@+id/eth_img_dhcp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eth_dhcp"/>
+                <TextView
+                    style="@style/LayoutContentStyle"
+                    android:layout_weight="1"
+                    android:id="@+id/eth_tv_dhcp_connect"/>
+
 
             </LinearLayout>
             <ImageView
@@ -46,35 +72,18 @@
             <LinearLayout
                 style="@style/LayoutStyle"
                 android:focusable="true"
-                android:id="@+id/dhcp_container">
-                <RadioButton
+                android:id="@+id/eth_ll_static">
+                <ImageView
                     style="@style/RadioButtonStyle"
-                    android:text="@string/set_dhcp"
-                    android:id="@+id/dhcp_radiobutton"/>
+                    android:id="@+id/eth_img_static"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/eth_static"/>
                 <TextView
                     style="@style/LayoutContentStyle"
                     android:layout_weight="1"
-                    android:id="@+id/dhcp_state"/>
-
-
-            </LinearLayout>
-            <ImageView
-                style="@style/DividerStyle"
-                android:background="@drawable/background_divider"/>
-
-            <LinearLayout
-                style="@style/LayoutStyle"
-                android:focusable="true"
-                android:id="@+id/static_ip_container">
-                <RadioButton
-                    style="@style/RadioButtonStyle"
-                    android:text="@string/set_static_ip"
-                    android:id="@+id/static_ip_radiobutton"/>
-                <TextView
-                    style="@style/LayoutContentStyle"
-                    android:layout_weight="1"
-                    android:id="@+id/static_ip_state"
-                    android:text="hello"/>
+                    android:id="@+id/eth_tv_static_connect"/>
 
             </LinearLayout>
             <ImageView

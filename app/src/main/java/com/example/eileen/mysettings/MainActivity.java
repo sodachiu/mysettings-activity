@@ -37,7 +37,8 @@ public class MainActivity extends QuitActivity implements View.OnKeyListener{
         //启动自动待机服务
         HiDisplayManager hdm = new HiDisplayManager();
         int powerStandbyIsOpen = hdm.getHDMISuspendEnable();
-        if (powerStandbyIsOpen == 1){
+        int tvState = hdm.getTVStatus();
+        if (powerStandbyIsOpen == 1 && tvState != -99){
             Intent intent = new Intent(this, StandbyService.class);
             startService(intent);
         }

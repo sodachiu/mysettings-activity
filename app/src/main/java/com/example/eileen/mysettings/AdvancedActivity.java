@@ -57,10 +57,11 @@ public class AdvancedActivity extends QuitActivity
 
     @Override
     public void onClick(View v){
+        logUtil.logi("AdvancedActivity---->onClick()");
         String pwdText = mEtPassword.getText().toString();
+
         logUtil.logi("用户输入密码---->" + pwdText);
 
-        // 拿到系统密码，与之对比
         if (pwdText.equals("10086") ){
             Intent intent = new Intent(AdvancedActivity.this,
                     AdvancedActivity2.class);
