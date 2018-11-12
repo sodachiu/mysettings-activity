@@ -30,15 +30,14 @@
                 android:focusable="true"
                 android:id="@+id/eth_ll_pppoe">
                 <ImageView
-                    style="@style/RadioButtonStyle"
+                    style="@style/netEthImgStyle"
                     android:id="@+id/eth_img_pppoe"/>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/netEthTvStyle1"
                     android:text="@string/eth_pppoe"/>
                 <TextView
-                    style="@style/LayoutContentStyle"
-                    android:layout_weight="1"
+                    style="@style/netEthTvStyle2"
+                    android:text="@string/eth_connected"
                     android:id="@+id/eth_tv_pppoe_connect"/>
 
             </LinearLayout>
@@ -52,15 +51,14 @@
                 android:focusable="true"
                 android:id="@+id/eth_ll_dhcp">
                 <ImageView
-                    style="@style/RadioButtonStyle"
+                    style="@style/netEthImgStyle"
                     android:id="@+id/eth_img_dhcp"/>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/netEthTvStyle1"
                     android:text="@string/eth_dhcp"/>
                 <TextView
-                    style="@style/LayoutContentStyle"
-                    android:layout_weight="1"
+                    style="@style/netEthTvStyle2"
+                    android:text="@string/eth_connected"
                     android:id="@+id/eth_tv_dhcp_connect"/>
 
 
@@ -74,15 +72,14 @@
                 android:focusable="true"
                 android:id="@+id/eth_ll_static">
                 <ImageView
-                    style="@style/RadioButtonStyle"
+                    style="@style/netEthImgStyle"
                     android:id="@+id/eth_img_static"/>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/netEthTvStyle1"
                     android:text="@string/eth_static"/>
                 <TextView
-                    style="@style/LayoutContentStyle"
-                    android:layout_weight="1"
+                    style="@style/netEthTvStyle2"
+                    android:text="@string/eth_connected"
                     android:id="@+id/eth_tv_static_connect"/>
 
             </LinearLayout>

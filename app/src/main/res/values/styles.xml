@@ -8,6 +8,15 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--文本的基本样式-->
+    <style name="tvBaseStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textSize">23dp</item>
+        <item name="android:textColor">#fff</item>
+    </style>
+
     <style name="mainStyle">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">0dp</item>
@@ -91,6 +100,7 @@
         <item name="android:checked">true</item>
     </style>
 
+
     <style name="ButtonStyle">
         <item name="android:layout_width">150dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -111,6 +121,26 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginTop">10dp</item>
     </style>
+
+    <style name="netEthImgStyle">
+        <item name="android:layout_width">50dp</item>
+        <item name="android:layout_marginStart">100dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:resource">@drawable/radio_unchecked_normal</item>
+    </style>
+
+    <style name="netEthTvStyle1" parent="@style/tvBaseStyle">
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="netEthTvStyle2" parent="@style/tvBaseStyle">
+        <item name="android:gravity">center_vertical|start</item>
+        <item name="android:layout_weight">2</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+
+
+
 
     <!--所有EditView的样式-->
 

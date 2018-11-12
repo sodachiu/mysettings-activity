@@ -52,7 +52,7 @@
         <activity
             android:name=".NetSettingActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".EthernetSettingActivity" />
+        <activity android:name=".EthSettingActivity" />
         <activity android:name=".BluetoothActivity" />
         <activity android:name=".NetInfoActivity" />
         <activity android:name=".PPPoEActivity" />

@@ -65,6 +65,7 @@
     <string name="eth_pppoe">PPPoE</string>
     <string name="eth_dhcp">DHCP</string>
     <string name="eth_static">静态IP</string>
+    <string name="eth_connected">已连接</string>
 
     <!--######################日期和时间下的所有单一使用的文本信息#########################-->
     <string name="set_date_and_time">设置日期和时间</string>

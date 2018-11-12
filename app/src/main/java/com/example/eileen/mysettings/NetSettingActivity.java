@@ -2,7 +2,6 @@ package com.example.eileen.mysettings;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -54,7 +53,7 @@ public class NetSettingActivity extends QuitActivity
         Intent intent;
         switch (v.getId()){
             case R.id.set_net:
-                intent = new Intent(NetSettingActivity.this, EthernetSettingActivity.class);
+                intent = new Intent(NetSettingActivity.this, EthSettingActivity.class);
                 startActivity(intent);
                 break;
             case R.id.set_bluetooth:
