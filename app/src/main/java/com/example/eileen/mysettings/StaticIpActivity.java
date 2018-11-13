@@ -37,8 +37,7 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
     public static final int DNS1_ILLEGAL = 3;
     public static final int DNS2_ILLEGAL = 4;
     public static final int NOT_ONE_SEGMENT = 5;
-    public static final int STATIC_CONNECT_SUCCESS = 6;
-    public static final int STATIC_CONNECT_FAILED = 7;
+    public static final int NO_PHY_LINK = 6;
 
     private LogUtil logUtil = new LogUtil("mynetsettings");
     private EthernetManager mEthManager;
@@ -84,14 +83,9 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
                             Toast.LENGTH_SHORT).show();
                     initView();
                     break;
-                case STATIC_CONNECT_FAILED:
+                case NO_PHY_LINK:
                     Toast.makeText(StaticIpActivity.this,
-                            "连接失败",
-                            Toast.LENGTH_SHORT).show();
-                    break;
-                case STATIC_CONNECT_SUCCESS:
-                    Toast.makeText(StaticIpActivity.this,
-                            "连接成功",
+                            "请检查网线是否连接",
                             Toast.LENGTH_SHORT).show();
                     break;
                 default:
@@ -108,10 +102,9 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.static_ip_activity);
         getService();
         findView();
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(EthernetManager.ETHERNET_STATE_CHANGED_ACTION);
-        registerReceiver(myReceiver, filter);
 
+        IntentFilter filter = new IntentFilter(EthernetManager.ETHERNET_STATE_CHANGED_ACTION);
+        registerReceiver(myReceiver, filter);
     }
 
     @Override
@@ -125,7 +118,6 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
     protected void onDestroy(){
         logUtil.logi("StaticIpActivity------>onDestroy()");
         super.onDestroy();
-        unregisterReceiver(myReceiver);
         mHandler.removeCallbacksAndMessages(null);//防止handler造成的内存泄漏
     }
 
@@ -196,13 +188,17 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v){
         switch (v.getId()){
             case R.id.static_btn_confirm:
-                boolean dhcpItemLegal = checkDhcpItem();
-                if (dhcpItemLegal){
-                    logUtil.logi("用户输入的信息正确，进行静态IP连接");
-                    setStatic();
-                }else {
-                    logUtil.logi("用户输入信息不合法，退出静态IP连接");
+                if (!mEthManager.getNetLinkStatus()){
+                    mHandler.sendEmptyMessage(NO_PHY_LINK);
+                    logUtil.logi("没有检测到网线插入");
                 }
+
+                if (!checkDhcpItem()){
+                    logUtil.logi("用户输入信息不合法，退出静态IP连接");
+                    return;
+                }
+                logUtil.logi("用户输入的信息正确，进行静态IP连接");
+                setStatic();
                 break;
             case R.id.static_btn_cancel:
                 finish();
@@ -244,7 +240,7 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
     * */
     private boolean checkDhcpItem(){
         logUtil.logi("StaticIpActivity---->checkDhcpItem()");
-        mUserIP = etIp.getText().toString();
+        mUserIP = etIp.getText().toString().trim();
         logUtil.logi("用户输入的IP为---->" + mUserIP);
         boolean ipLegal = MyNetworkUtil.checkDhcpItem(mUserIP);
         if (!ipLegal){
@@ -256,7 +252,7 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
         }
 
         //比较与默认的mask是否相同
-        mUserMask = etMask.getText().toString();
+        mUserMask = etMask.getText().toString().trim();
         logUtil.logi("用户输入的netmask为---->" + mUserMask);
         String netMask = NetworkUtils.intToInetAddress(mDhcp.netmask).getHostAddress();
         boolean maskLegal = netMask.equals(mUserMask);
@@ -269,7 +265,7 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
         }
 
 
-        mUserGateway = etGateway.getText().toString();
+        mUserGateway = etGateway.getText().toString().trim();
         logUtil.logi("用户输入的gateway为---->" + mUserGateway);
         boolean gatewayLegal = MyNetworkUtil.checkDhcpItem(mUserGateway);
         if (!gatewayLegal){
@@ -280,7 +276,7 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
             return false;
         }
 
-        mUserDns1 = etDns1.getText().toString();
+        mUserDns1 = etDns1.getText().toString().trim();
         logUtil.logi("用户输入的dns1为---->" + mUserDns1);
         boolean dns1Legal = MyNetworkUtil.checkDhcpItem(mUserDns1);
         if (!dns1Legal){
@@ -291,7 +287,7 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
             return false;
         }
 
-        mUserDns2 = etDns2.getText().toString();
+        mUserDns2 = etDns2.getText().toString().trim();
         logUtil.logi("用户输入的dns2为---->" + mUserDns2);
         boolean dns2Legal = MyNetworkUtil.checkDhcpItem(mUserDns2);
         if (!dns2Legal){
@@ -311,36 +307,15 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
             return false;
         }
 
-        logUtil.logi("checkDhcpItem结尾");
         return true;
     }
 
-    /*
-    * 监听网络变化的广播
-    * */
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            logUtil.logi("staticIpActivity---->onReceive()");
-
-            String action = intent.getAction();
-            logUtil.logi("onReceive()---->广播：" + action);
-
-            int ethEvent = intent.getIntExtra(EthernetManager.EXTRA_ETHERNET_STATE, -1);
-
-            if (ethEvent == EthernetManager.EVENT_STATIC_CONNECT_SUCCESSED){
-                logUtil.logi("onReceive()---->静态IP连接成功");
-                Message mMsg = new Message();
-                mMsg.what = STATIC_CONNECT_SUCCESS;
-                mHandler.sendMessage(mMsg);
-            }else if (ethEvent == EthernetManager.EVENT_STATIC_CONNECT_FAILED){
-                logUtil.logi("onReceive()---->静态IP连接失败");
-                Message mMsg = new Message();
-                mMsg.what = STATIC_CONNECT_FAILED;
-                mHandler.sendMessage(mMsg);
-            }
-
+            initView();
         }
     };
+
 
 }

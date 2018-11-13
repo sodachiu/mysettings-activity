@@ -1,5 +1,9 @@
 package com.example.eileen.mysettings.network;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.example.eileen.mysettings.utils.LogUtil;
 
 import java.util.regex.Pattern;
@@ -52,5 +56,21 @@ public class MyNetworkUtil {
         }
     }
 
+    /*
+    * 检查网络是否连接
+    * */
+    public static boolean checkNetAvailable(Context context){
+        logUtil.logi("MyNetworkUtil--->checkNetAvailable(Context, context)");
+        ConnectivityManager connectivityManager = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+        if (networkInfo != null && networkInfo.isConnected()){
+            logUtil.logi("checkNetAvailable()---->网络可用");
+            return true;
+        }
+
+        logUtil.logi("checkNetAvailable()---->网络不可用");
+        return false;
+    }
 
 }
