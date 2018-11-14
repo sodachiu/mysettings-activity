@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,10 +27,13 @@ import java.net.InetAddress;
 
 public class StaticIpActivity extends AppCompatActivity implements View.OnClickListener{
 
+    public static final String TAG = "mystatic";
+
     private TextView tvMenu;
     private EditText etIp, etMask, etGateway, etDns1, etDns2;
     private Button btnConfirm, btnCancel;
     private String mUserIP, mUserMask, mUserGateway, mUserDns1, mUserDns2;
+    private String mWorkIP, mWorkMask, mWorkGateway, mWorkDns1, mWorkDns2;
     private InetAddress miIP, miMask, miGateway, miDns1, miDns2;
     public static final int IP_ILLEGAL = 0;
     public static final int MASK_ILLEGAL = 1;
@@ -38,62 +42,17 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
     public static final int DNS2_ILLEGAL = 4;
     public static final int NOT_ONE_SEGMENT = 5;
     public static final int NO_PHY_LINK = 6;
+    public static final int STATIC_CONNECT_FAILED = 7;
+    public static final int STATIC_DISCONNECT_FAILED = 8;
+    public static final int STATIC_DISCONNECT_SUCCESS = 9;
+    public static final int STATIC_CONNECTING = 10;
+    public static final int DHCPINFO_REPEAT= 11;
 
     private LogUtil logUtil = new LogUtil("mynetsettings");
     private EthernetManager mEthManager;
     private PppoeManager mPppoeManager;
     private DhcpInfo mDhcp = null;
-    private Handler mHandler = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what){
-                case IP_ILLEGAL:
-                    Toast.makeText(StaticIpActivity.this,
-                            "IP不合法",
-                            Toast.LENGTH_SHORT).show();
-                    initView();
-                    break;
-                case MASK_ILLEGAL:
-                    Toast.makeText(StaticIpActivity.this,
-                            "子网掩码不合法",
-                            Toast.LENGTH_SHORT).show();
-                    initView();
-                    break;
-                case GATEWAY_ILLEGAL:
-                    Toast.makeText(StaticIpActivity.this,
-                            "网关不合法",
-                            Toast.LENGTH_SHORT).show();
-                    initView();
-                    break;
-                case DNS1_ILLEGAL:
-                    Toast.makeText(StaticIpActivity.this,
-                            "主用DNS不合法",
-                            Toast.LENGTH_SHORT).show();
-                    initView();
-                    break;
-                case DNS2_ILLEGAL:
-                    Toast.makeText(StaticIpActivity.this,
-                            "备用DNS不合法",
-                            Toast.LENGTH_SHORT).show();
-                    initView();
-                    break;
-                case NOT_ONE_SEGMENT:
-                    Toast.makeText(StaticIpActivity.this,
-                            "IP和网关不在同一个网段",
-                            Toast.LENGTH_SHORT).show();
-                    initView();
-                    break;
-                case NO_PHY_LINK:
-                    Toast.makeText(StaticIpActivity.this,
-                            "请检查网线是否连接",
-                            Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    break;
-            }
-        }
 
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +78,7 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
         logUtil.logi("StaticIpActivity------>onDestroy()");
         super.onDestroy();
         mHandler.removeCallbacksAndMessages(null);//防止handler造成的内存泄漏
+        unregisterReceiver(myReceiver);
     }
 
 
@@ -137,6 +97,35 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
         }else {
             mDhcp = mEthManager.getDhcpInfo();
         }
+    }
+
+    /*
+    *
+    * 判断在静态IP连接的情况下，用户是否没有修改任何信息进行了再次点击连接静态IP
+    *
+    * true: 信息重复，上层代码进行拦截静态IP的连接
+    * false: 信息不重复，可进行静态IP的连接
+    * */
+
+    public boolean checkInfoRepeat(){
+        String ethMode = mEthManager.getEthernetMode();
+
+        if (!ethMode.equals(EthernetManager.ETHERNET_CONNECT_MODE_MANUAL)){
+            logUtil.logi("checkInfoRepeat:当前模式不为静态IP，可继续设置静态IP连接");
+            return false;
+        }
+
+        if (mUserIP.equals(mWorkIP)
+                && mUserMask.equals(mWorkMask)
+                && mUserGateway.equals(mWorkGateway)
+                && mUserDns1.equals(mWorkDns1)
+                && mUserDns2.equals(mWorkDns2)){
+            //在所有信息均相同的情况下
+            return true;
+        }else {
+            return false;
+        }
+
     }
 
     private void findView(){
@@ -158,21 +147,26 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
         btnConfirm.requestFocus();
 
         String defaultInfo = getResources().getString(R.string.net_default_text);
-        String sIP = defaultInfo, sMask = defaultInfo, sGateway = defaultInfo,
-                sDns1 = defaultInfo, sDns2 = defaultInfo;
+
+        mWorkIP = defaultInfo;
+        mWorkMask = defaultInfo;
+        mWorkGateway = defaultInfo;
+        mWorkDns1 = defaultInfo;
+        mWorkDns2 = defaultInfo;
+
         if (mDhcp != null){
-            sIP = NetworkUtils.intToInetAddress(mDhcp.ipAddress).getHostAddress();
-            sMask = NetworkUtils.intToInetAddress(mDhcp.netmask).getHostAddress();
-            sGateway = NetworkUtils.intToInetAddress(mDhcp.gateway).getHostAddress();
-            sDns1 = NetworkUtils.intToInetAddress(mDhcp.dns1).getHostAddress();
-            sDns2 = NetworkUtils.intToInetAddress(mDhcp.dns2).getHostAddress();
+            mWorkIP = NetworkUtils.intToInetAddress(mDhcp.ipAddress).getHostAddress();
+            mWorkMask = NetworkUtils.intToInetAddress(mDhcp.netmask).getHostAddress();
+            mWorkGateway = NetworkUtils.intToInetAddress(mDhcp.gateway).getHostAddress();
+            mWorkDns1 = NetworkUtils.intToInetAddress(mDhcp.dns1).getHostAddress();
+            mWorkDns2 = NetworkUtils.intToInetAddress(mDhcp.dns2).getHostAddress();
         }
 
-        etIp.setText(sIP);
-        etMask.setText(sMask);
-        etGateway.setText(sGateway);
-        etDns1.setText(sDns1);
-        etDns2.setText(sDns2);
+        etIp.setText(mWorkIP);
+        etMask.setText(mWorkMask);
+        etGateway.setText(mWorkGateway);
+        etDns1.setText(mWorkDns1);
+        etDns2.setText(mWorkDns2);
 
         etIp.setSelectAllOnFocus(true);
         etMask.setSelectAllOnFocus(true);
@@ -188,19 +182,11 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v){
         switch (v.getId()){
             case R.id.static_btn_confirm:
-                if (!mEthManager.getNetLinkStatus()){
-                    mHandler.sendEmptyMessage(NO_PHY_LINK);
-                    logUtil.logi("没有检测到网线插入");
-                }
-
-                if (!checkDhcpItem()){
-                    logUtil.logi("用户输入信息不合法，退出静态IP连接");
-                    return;
-                }
-                logUtil.logi("用户输入的信息正确，进行静态IP连接");
+                logUtil.logi("onClick: 用户点击了确定");
                 setStatic();
                 break;
             case R.id.static_btn_cancel:
+                logUtil.logi("onClick: 用户点击了取消");
                 finish();
                 break;
             default:
@@ -209,6 +195,25 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private void setStatic(){
+
+        if (!mEthManager.getNetLinkStatus()){
+            mHandler.sendEmptyMessage(NO_PHY_LINK);
+            logUtil.logi("没有检测到网线插入");
+            return;
+        }
+
+        if (!checkDhcpItem()){
+            logUtil.logi("用户输入信息不合法，退出静态IP连接");
+            return;
+        }
+        if (checkInfoRepeat()){
+            logUtil.logi("用户没有输入新的信息，退出静态IP连接");
+            mHandler.sendEmptyMessage(DHCPINFO_REPEAT);
+            return;
+        }
+
+        mHandler.sendEmptyMessage(STATIC_CONNECTING);
+
         logUtil.logi("StaticIpActivity---->setStatic()");
 
         DhcpInfo userDhcpInfo = new DhcpInfo();
@@ -311,10 +316,106 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
     }
 
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
+
         @Override
         public void onReceive(Context context, Intent intent) {
-            initView();
+            String action = intent.getAction();
+            Log.i(TAG, "onReceive: 广播为---->" + action);
+            if (action.equals(EthernetManager.ETHERNET_STATE_CHANGED_ACTION)){
+                int ethEvent = intent.getIntExtra(EthernetManager.EXTRA_ETHERNET_STATE, -1);
+                if (ethEvent == EthernetManager.EVENT_STATIC_CONNECT_SUCCESSED){
+                    Log.i(TAG, "onReceive: 静态IP连接成功");
+                }else if (ethEvent == EthernetManager.EVENT_STATIC_CONNECT_FAILED){
+                    mHandler.sendEmptyMessage(STATIC_CONNECT_FAILED);
+                    Log.i(TAG, "onReceive: 静态IP连接失败");
+                    initView();
+                }else if (ethEvent == EthernetManager.EVENT_STATIC_DISCONNECT_FAILED){
+                    mHandler.sendEmptyMessage(STATIC_DISCONNECT_FAILED);
+                    Log.i(TAG, "onReceive: 静态IP断开连接失败");
+                }else if (ethEvent == EthernetManager.EVENT_STATIC_DISCONNECT_SUCCESSED){
+                    mHandler.sendEmptyMessage(STATIC_DISCONNECT_SUCCESS);
+                    Log.i(TAG, "onReceive: 静态IP断开连接成功");
+                    initView();
+                }
+            }
+
         }
+    };
+    private Handler mHandler = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case IP_ILLEGAL:
+                    Toast.makeText(StaticIpActivity.this,
+                            "IP不合法",
+                            Toast.LENGTH_SHORT).show();
+                    initView();
+                    break;
+                case MASK_ILLEGAL:
+                    Toast.makeText(StaticIpActivity.this,
+                            "子网掩码不合法",
+                            Toast.LENGTH_SHORT).show();
+                    initView();
+                    break;
+                case GATEWAY_ILLEGAL:
+                    Toast.makeText(StaticIpActivity.this,
+                            "网关不合法",
+                            Toast.LENGTH_SHORT).show();
+                    initView();
+                    break;
+                case DNS1_ILLEGAL:
+                    Toast.makeText(StaticIpActivity.this,
+                            "主用DNS不合法",
+                            Toast.LENGTH_SHORT).show();
+                    initView();
+                    break;
+                case DNS2_ILLEGAL:
+                    Toast.makeText(StaticIpActivity.this,
+                            "备用DNS不合法",
+                            Toast.LENGTH_SHORT).show();
+                    initView();
+                    break;
+                case NOT_ONE_SEGMENT:
+                    Toast.makeText(StaticIpActivity.this,
+                            "IP和网关不在同一个网段",
+                            Toast.LENGTH_SHORT).show();
+                    initView();
+                    break;
+                case NO_PHY_LINK:
+                    Toast.makeText(StaticIpActivity.this,
+                            "请检查网线是否连接",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                case STATIC_CONNECT_FAILED:
+                    Toast.makeText(StaticIpActivity.this,
+                            "静态IP连接失败",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                case STATIC_DISCONNECT_FAILED:
+                    Toast.makeText(StaticIpActivity.this,
+                            "静态IP断开连接失败",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                case STATIC_DISCONNECT_SUCCESS:
+                    Toast.makeText(StaticIpActivity.this,
+                            "静态IP断开连接成功",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                case STATIC_CONNECTING:
+                    Toast.makeText(StaticIpActivity.this,
+                            "正在连接请稍后...",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                case DHCPINFO_REPEAT:
+                    Toast.makeText(StaticIpActivity.this,
+                            "没有输入新的信息",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                default:
+                    break;
+            }
+        }
+
     };
 
 
