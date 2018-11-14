@@ -45,6 +45,7 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
     public static final int STATIC_CONNECT_FAILED = 7;
     public static final int STATIC_DISCONNECT_FAILED = 8;
     public static final int STATIC_DISCONNECT_SUCCESS = 9;
+    public static final int STATIC_CONNECT_SUCCESS = 12;
     public static final int STATIC_CONNECTING = 10;
     public static final int DHCPINFO_REPEAT= 11;
 
@@ -147,6 +148,8 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
         btnConfirm.requestFocus();
 
         String defaultInfo = getResources().getString(R.string.net_default_text);
+        boolean netAvailable = MyNetworkUtil.checkNetAvailable(getApplicationContext());
+        logUtil.logi("initView: 网络是否可用---->" + netAvailable);
 
         mWorkIP = defaultInfo;
         mWorkMask = defaultInfo;
@@ -154,7 +157,7 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
         mWorkDns1 = defaultInfo;
         mWorkDns2 = defaultInfo;
 
-        if (mDhcp != null){
+        if (netAvailable && mDhcp != null){
             mWorkIP = NetworkUtils.intToInetAddress(mDhcp.ipAddress).getHostAddress();
             mWorkMask = NetworkUtils.intToInetAddress(mDhcp.netmask).getHostAddress();
             mWorkGateway = NetworkUtils.intToInetAddress(mDhcp.gateway).getHostAddress();
@@ -326,7 +329,6 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
                 if (ethEvent == EthernetManager.EVENT_STATIC_CONNECT_SUCCESSED){
                     Log.i(TAG, "onReceive: 静态IP连接成功");
                 }else if (ethEvent == EthernetManager.EVENT_STATIC_CONNECT_FAILED){
-                    mHandler.sendEmptyMessage(STATIC_CONNECT_FAILED);
                     Log.i(TAG, "onReceive: 静态IP连接失败");
                     initView();
                 }else if (ethEvent == EthernetManager.EVENT_STATIC_DISCONNECT_FAILED){
@@ -389,6 +391,11 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
                 case STATIC_CONNECT_FAILED:
                     Toast.makeText(StaticIpActivity.this,
                             "静态IP连接失败",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                case STATIC_CONNECT_SUCCESS:
+                    Toast.makeText(StaticIpActivity.this,
+                            "静态IP连接成功",
                             Toast.LENGTH_SHORT).show();
                     break;
                 case STATIC_DISCONNECT_FAILED:

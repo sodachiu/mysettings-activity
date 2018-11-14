@@ -206,14 +206,14 @@ public class PPPoEActivity extends AppCompatActivity
                   break;
               case PPPOE_CONNECT_FAILED :
                   Toast.makeText(PPPoEActivity.this,
-                          "PPPoE未连接",
+                          "999, PPPOE 拨号错误",
                           Toast.LENGTH_SHORT).show();
                   break;
-              /*case PPPOE_DISCONNECT_SUCCESS :
+              case PPPOE_DISCONNECT_SUCCESS :
                   Toast.makeText(PPPoEActivity.this,
                         "PPPoE连接已断开",
                         Toast.LENGTH_SHORT).show();
-                  break;*/
+                  break;
               case PPPOE_DISCONNECT_FAILED :
                   Toast.makeText(PPPoEActivity.this,
                           "PPPoE断开连接失败",
@@ -272,21 +272,21 @@ public class PPPoEActivity extends AppCompatActivity
 
                 }else if (pppoeEvent == PppoeManager.EVENT_AUTORECONNECTING){
 
-                    mHandler.sendEmptyMessage(PPPOE_AUTO_RECONNECT);
+//                    mHandler.sendEmptyMessage(PPPOE_AUTO_RECONNECT);
                     Log.i(TAG, "onReceive: pppoe尝试重连");
 
                 }else if (pppoeEvent == PppoeManager.EVENT_CONNECT_SUCCESSED){
 
                     if (mEthManager.getEthernetMode().equals(
                             EthernetManager.ETHERNET_CONNECT_MODE_PPPOE)){
-                        mHandler.sendEmptyMessage(PPPOE_CONNECT_SUCCESS);
+//                        mHandler.sendEmptyMessage(PPPOE_CONNECT_SUCCESS);
                         Log.i(TAG, "onReceive: pppoe连接成功");
                     }
 
 
                 }else if (pppoeEvent == PppoeManager.EVENT_DISCONNECT_SUCCESSED){
 
-                    mHandler.sendEmptyMessage(PPPOE_DISCONNECT_SUCCESS);
+//                    mHandler.sendEmptyMessage(PPPOE_DISCONNECT_SUCCESS);
                     Log.i(TAG, "onReceive: pppoe成功断开连接");
 
                 }else if (pppoeEvent == PppoeManager.EVENT_DISCONNECT_FAILED){

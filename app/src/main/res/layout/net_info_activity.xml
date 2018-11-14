@@ -22,7 +22,8 @@
             <TextView
                 style="@style/TitleStyle"
                 android:background="@drawable/background_title"
-                android:text="@string/network_information" />
+                android:text="@string/network_information"
+                android:id="@+id/netinfo_tv_title"/>
 
             <LinearLayout style="@style/LayoutStyle">
 
@@ -93,13 +94,11 @@
                     android:layout_weight="1"
                     android:text="@string/main_dns" />
 
-                <EditText
+                <TextView
                     android:id="@+id/netinfo_et_dns1"
                     style="@style/LayoutContentStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:focusable="true"
                     android:text="@string/net_default_text" />
             </LinearLayout>
 
@@ -115,29 +114,14 @@
                     android:layout_weight="1"
                     android:text="@string/backup_dns" />
 
-                <EditText
+                <TextView
                     android:id="@+id/netinfo_et_dns2"
                     style="@style/LayoutContentStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:focusable="true"
                     android:text="@string/net_default_text" />
             </LinearLayout>
 
-            <ImageView
-                style="@style/DividerStyle"
-                android:background="@drawable/background_divider" />
-
-            <LinearLayout
-                style="@style/LayoutStyle"
-                android:gravity="center_horizontal|bottom">
-
-                <Button
-                    android:id="@+id/netinfo_btn_confirm"
-                    style="@style/ButtonStyle"
-                    android:text="@string/button_confirm" />
-            </LinearLayout>
 
         </LinearLayout>
 

@@ -36,14 +36,18 @@ public class EthSettingActivity extends AppCompatActivity implements View.OnClic
     public static final int DHCP_CONNECT_SUCCESS = 1;
     public static final int DHCP_CONNECT_FAILED = 2;
     public static final int DHCP_DISCONNECT_FAILED = 3;
-    public static final int DHCP_DISCONNECT_SUCCESS = 11;
-    public static final int DHCP_ALREADY_CONNECT = 4;
-    public static final int PHY_LINK_DOWN = 5;
-    public static final int PHY_LINK_UP = 6;
-    public static final int NO_PHY_LINK = 7;
-    public static final int STATIC_CONNECT_SUCCESS = 8;
-    public static final int PPPOE_CONNECT_SUCCESS = 9;
-    public static final int DHCP_CONNECTING = 10;
+    public static final int DHCP_DISCONNECT_SUCCESS = 4;
+    public static final int DHCP_ALREADY_CONNECT = 5;
+    public static final int PHY_LINK_DOWN = 6;
+    public static final int PHY_LINK_UP = 7;
+    public static final int NO_PHY_LINK = 8;
+    public static final int STATIC_CONNECT_SUCCESS = 9;
+    public static final int STATIC_CONNECT_FAILED = 10;
+    public static final int STATIC_DISCONNECT_FAILED = 11;
+    public static final int STATIC_DISCONNECT_SUCCESS = 12;
+    public static final int PPPOE_CONNECT_SUCCESS = 13;
+    public static final int PPPOE_CONNECT_FAILED = 14;
+    public static final int DHCP_CONNECTING = 15;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -159,7 +163,7 @@ public class EthSettingActivity extends AppCompatActivity implements View.OnClic
             if (action.equals(EthernetManager.ETHERNET_STATE_CHANGED_ACTION)){
 
                 int ethEvent = intent.getIntExtra(EthernetManager.EXTRA_ETHERNET_STATE, -1);
-                Log.i(TAG, "onReceive: 网络事件代码---->" + ethEvent);
+                Log.i(TAG, "onReceive: ethEvent代码---->" + ethEvent);
 
                 if (ethMode.equals(EthernetManager.ETHERNET_CONNECT_MODE_DHCP)){
                     switch (ethEvent){
@@ -191,6 +195,21 @@ public class EthSettingActivity extends AppCompatActivity implements View.OnClic
                             mHandler.sendEmptyMessage(STATIC_CONNECT_SUCCESS);
                             Log.i(TAG, "onReceive: 静态IP连接成功");
                             break;
+                        case EthernetManager.EVENT_STATIC_CONNECT_FAILED:
+                            isNetAvailable = false;
+                            mHandler.sendEmptyMessage(STATIC_CONNECT_FAILED);
+                            Log.i(TAG, "onReceive: 静态IP连接失败");
+                            break;
+                        case EthernetManager.EVENT_STATIC_DISCONNECT_SUCCESSED:
+                            isNetAvailable = false;
+                            mHandler.sendEmptyMessage(STATIC_DISCONNECT_SUCCESS);
+                            Log.i(TAG, "onReceive: 静态IP断开成功");
+                            break;
+                        case EthernetManager.EVENT_STATIC_DISCONNECT_FAILED:
+                            isNetAvailable = true;
+                            mHandler.sendEmptyMessage(STATIC_DISCONNECT_FAILED);
+                            Log.i(TAG, "onReceive: 静态IP断开失败");
+                            break;
                     }
                 }else {
                     switch (ethEvent){
@@ -209,14 +228,21 @@ public class EthSettingActivity extends AppCompatActivity implements View.OnClic
             } else if (action.equals(PppoeManager.PPPOE_STATE_CHANGED_ACTION)){
 
                 int pppoeEvent = intent.getIntExtra(PppoeManager.EXTRA_PPPOE_STATE, -1);
-                if (pppoeEvent == PppoeManager.EVENT_CONNECT_SUCCESSED){
+                Log.i(TAG, "onReceive: pppoeEvent代码---->" + pppoeEvent);
 
-                    if (ethMode.equals(EthernetManager.ETHERNET_CONNECT_MODE_PPPOE)){
-                        isNetAvailable = true;
-                        mHandler.sendEmptyMessage(PPPOE_CONNECT_SUCCESS);
-                        Log.i(TAG, "onReceive: pppoe连接成功");
+                if (ethMode.equals(EthernetManager.ETHERNET_CONNECT_MODE_PPPOE)){
+                    switch (pppoeEvent){
+                        case PppoeManager.EVENT_CONNECT_SUCCESSED:
+                            isNetAvailable = true;
+                            mHandler.sendEmptyMessage(PPPOE_CONNECT_SUCCESS);
+                            Log.i(TAG, "onReceive: pppoe连接成功");
+                            break;
+                        case PppoeManager.EVENT_CONNECT_FAILED:
+                            isNetAvailable = true;
+                            mHandler.sendEmptyMessage(PPPOE_CONNECT_FAILED);
+                            Log.i(TAG, "onReceive: pppoe连接失败");
+                            break;
                     }
-
                 }
             }
 
@@ -242,7 +268,7 @@ public class EthSettingActivity extends AppCompatActivity implements View.OnClic
                     break;
                 case DHCP_ALREADY_CONNECT :
                     Toast.makeText(EthSettingActivity.this,
-                            "DHCP已经连接",
+                            "DHCP已连接",
                             Toast.LENGTH_SHORT).show();
                     break;
                 case PHY_LINK_DOWN :
@@ -265,9 +291,19 @@ public class EthSettingActivity extends AppCompatActivity implements View.OnClic
                             "静态IP连接成功",
                             Toast.LENGTH_SHORT).show();
                     break;
+                case STATIC_CONNECT_FAILED :
+                    Toast.makeText(EthSettingActivity.this,
+                            "静态IP连接失败",
+                            Toast.LENGTH_SHORT).show();
+                    break;
                 case PPPOE_CONNECT_SUCCESS :
                     Toast.makeText(EthSettingActivity.this,
                             "PPPOE连接成功",
+                            Toast.LENGTH_SHORT).show();
+                    break;
+                case PPPOE_CONNECT_FAILED :
+                    Toast.makeText(EthSettingActivity.this,
+                            "999, PPPOE 拨号错误",
                             Toast.LENGTH_SHORT).show();
                     break;
                 case DHCP_CONNECTING :
