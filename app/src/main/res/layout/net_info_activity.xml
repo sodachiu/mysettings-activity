@@ -95,7 +95,7 @@
                     android:text="@string/main_dns" />
 
                 <TextView
-                    android:id="@+id/netinfo_et_dns1"
+                    android:id="@+id/netinfo_tv_dns1"
                     style="@style/LayoutContentStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -115,14 +115,16 @@
                     android:text="@string/backup_dns" />
 
                 <TextView
-                    android:id="@+id/netinfo_et_dns2"
+                    android:id="@+id/netinfo_tv_dns2"
                     style="@style/LayoutContentStyle"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:text="@string/net_default_text" />
             </LinearLayout>
 
-
+            <ImageView
+                style="@style/DividerStyle"
+                android:background="@drawable/background_divider" />
         </LinearLayout>
 
     </LinearLayout>

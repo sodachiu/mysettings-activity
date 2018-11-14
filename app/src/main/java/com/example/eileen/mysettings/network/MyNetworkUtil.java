@@ -2,8 +2,13 @@ package com.example.eileen.mysettings.network;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.DhcpInfo;
 import android.net.NetworkInfo;
+import android.net.NetworkUtils;
+import android.net.ethernet.EthernetManager;
+import android.net.pppoe.PppoeManager;
 
+import com.example.eileen.mysettings.R;
 import com.example.eileen.mysettings.utils.LogUtil;
 
 import java.util.regex.Pattern;
@@ -60,6 +65,7 @@ public class MyNetworkUtil {
     * 检查网络是否连接
     * */
     public static boolean checkNetAvailable(Context context){
+
         logUtil.logi("MyNetworkUtil--->checkNetAvailable(Context, context)");
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -71,6 +77,65 @@ public class MyNetworkUtil {
 
         logUtil.logi("checkNetAvailable()---->网络不可用");
         return false;
+    }
+
+    /*
+    *
+    * 返回当前网络信息
+    * */
+
+    public static class MyDhcpInfo{
+        public String ipAddress, netMask, gateway, dns1, dns2;
+        private EthernetManager em;
+        private PppoeManager pm;
+        private DhcpInfo dhcpInfo;
+        private String defaultValue;
+
+        public MyDhcpInfo(Context context){
+
+            em = (EthernetManager) context.getSystemService(Context.ETHERNET_SERVICE);
+            pm = (PppoeManager) context.getSystemService(Context.PPPOE_SERVICE);
+            String ethMode = em.getEthernetMode();
+            defaultValue = context.getResources().getString(R.string.net_default_text);
+
+            ipAddress = defaultValue;
+            netMask = defaultValue;
+            gateway = defaultValue;
+            dns1 = defaultValue;
+            dns2 = defaultValue;
+
+            if (ethMode.equals(EthernetManager.ETHERNET_CONNECT_MODE_PPPOE)){
+                this.dhcpInfo = pm.getDhcpInfo();
+            }else {
+                this.dhcpInfo = em.getDhcpInfo();
+            }
+
+            if (dhcpInfo != null){
+                this.ipAddress = NetworkUtils.intToInetAddress(dhcpInfo.ipAddress).getHostAddress();
+                this.netMask = NetworkUtils.intToInetAddress(dhcpInfo.netmask).getHostAddress();
+                this.gateway = NetworkUtils.intToInetAddress(dhcpInfo.gateway).getHostAddress();
+                this.dns1 = NetworkUtils.intToInetAddress(dhcpInfo.dns1).getHostAddress();
+                this.dns2 = NetworkUtils.intToInetAddress(dhcpInfo.dns2).getHostAddress();
+            }
+        }
+
+        public EthernetManager getEthernetManager(){
+            return this.em;
+        }
+
+        public PppoeManager getPPPoEManager() {
+            return this.pm;
+        }
+
+
+        public DhcpInfo getDhcpInfo(){
+            return this.dhcpInfo;
+        }
+
+        public String getDefaultValue(){
+            return this.defaultValue;
+        }
+
     }
 
 }
