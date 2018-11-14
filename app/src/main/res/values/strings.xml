@@ -51,25 +51,22 @@
     <string name="paired">已配对</string>
     <string name="bound">已绑定</string>
     <string name="unbind">未绑定</string>
+    <string name="eth_pppoe">PPPoE</string>
+    <string name="eth_dhcp">DHCP</string>
+    <string name="eth_static">静态IP</string>
+    <string name="eth_connected">已连接</string>
 
     <!--######################网络信息下所有单一使用的文本信息#########################-->
     <string name="ethernet">有线网络</string>
-    <string name="dhcp_connected">有线网络已连接：DHCP</string>
-    <string name="pppoe_connected">有线网络已连接：PPPoE</string>
-    <string name="static_connected">有线网络已连接：静态IP</string>
+    <string name="netinfo_dhcp_connected">有线网络已连接：DHCP</string>
+    <string name="netinfo_pppoe_connected">有线网络已连接：PPPoE</string>
+    <string name="netinfo_static_connected">有线网络已连接：静态IP</string>
     <string name="ip_address">IP地址：</string>
     <string name="subnet_mask">子网掩码：</string>
     <string name="default_gateway">默认网关：</string>
     <string name="main_dns">主用DNS：</string>
     <string name="backup_dns">备用DNS：</string>
-    <string name="eth_pppoe">PPPoE</string>
-    <string name="eth_dhcp">DHCP</string>
-    <string name="eth_static">静态IP</string>
-    <string name="eth_connected">已连接</string>
-    <string name="netinfo_mode_pppoe">当前连接模式：PPPoE</string>
-    <string name="netinfo_mode_static">当前连接模式：静态IP</string>
-    <string name="netinfo_mode_dhcp">当前连接模式：DHCP</string>
-    <string name="netinfo_mode_unknown">当前连接模式：未知</string>
+    <string name="netinfo_no_net">无网络连接</string>
 
     <!--######################日期和时间下的所有单一使用的文本信息#########################-->
     <string name="set_date_and_time">设置日期和时间</string>

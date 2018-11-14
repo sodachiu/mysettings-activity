@@ -157,7 +157,7 @@ public class StaticIpActivity extends AppCompatActivity implements View.OnClickL
         mWorkDns1 = defaultInfo;
         mWorkDns2 = defaultInfo;
 
-        if (netAvailable && mDhcp != null){
+        if (mDhcp != null){
             mWorkIP = NetworkUtils.intToInetAddress(mDhcp.ipAddress).getHostAddress();
             mWorkMask = NetworkUtils.intToInetAddress(mDhcp.netmask).getHostAddress();
             mWorkGateway = NetworkUtils.intToInetAddress(mDhcp.gateway).getHostAddress();

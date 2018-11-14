@@ -35,7 +35,7 @@ public class NetInfoActivity extends QuitActivity implements View.OnKeyListener{
     private MyNetworkUtil.MyDhcpInfo myDhcpInfo;
     private Context mContext;
 
-    private static final String TAG = "mynetinfo";
+    private static final String TAG = "qll_mynetinfo";
 
 
 
@@ -183,35 +183,34 @@ public class NetInfoActivity extends QuitActivity implements View.OnKeyListener{
     private void setData(){
 
         Log.i(TAG, "setData: ");
-        myDhcpInfo = new MyNetworkUtil.MyDhcpInfo(mContext);
+        myDhcpInfo = new MyNetworkUtil.MyDhcpInfo(mContext, netAvailable);
         mDhcpInfo = myDhcpInfo.getDhcpInfo();
         mEthManager = myDhcpInfo.getEthernetManager();
         String ethMode = mEthManager.getEthernetMode();
         Log.i(TAG, "setData: 网络是否可用---->" + netAvailable);
         Log.i(TAG, "setData: 当前网络模式---->" + ethMode);
-        if (netAvailable && mDhcpInfo != null){
-            tvIP.setText(myDhcpInfo.ipAddress);
-            tvMask.setText(myDhcpInfo.netMask);
-            tvGateway.setText(myDhcpInfo.gateway);
-            tvDns1.setText(myDhcpInfo.dns1);
-            tvDns2.setText(myDhcpInfo.dns2);
-        }else {
-            tvIP.setText(myDhcpInfo.getDefaultValue());
-            tvMask.setText(myDhcpInfo.getDefaultValue());
-            tvGateway.setText(myDhcpInfo.getDefaultValue());
-            tvDns1.setText(myDhcpInfo.getDefaultValue());
-            tvDns2.setText(myDhcpInfo.getDefaultValue());
+        String title = getResources().getString(R.string.netinfo_no_net);
+
+        if (netAvailable){
+            switch (ethMode){
+                case EthernetManager.ETHERNET_CONNECT_MODE_PPPOE:
+                    title = getResources().getString(R.string.netinfo_pppoe_connected);
+                    break;
+                case EthernetManager.ETHERNET_CONNECT_MODE_MANUAL:
+                    title = getResources().getString(R.string.netinfo_static_connected);
+                    break;
+                case EthernetManager.ETHERNET_CONNECT_MODE_DHCP:
+                    title = getResources().getString(R.string.netinfo_dhcp_connected);
+                    break;
+            }
+
         }
 
-        String title = getResources().getString(R.string.netinfo_mode_unknown);
-        if (ethMode.equals(EthernetManager.ETHERNET_CONNECT_MODE_PPPOE)){
-            title = getResources().getString(R.string.netinfo_mode_pppoe);
-        }else if (ethMode.equals(EthernetManager.ETHERNET_CONNECT_MODE_MANUAL)){
-            title = getResources().getString(R.string.netinfo_mode_static);
-        }else if (ethMode.equals(EthernetManager.ETHERNET_CONNECT_MODE_DHCP)){
-            title = getResources().getString(R.string.netinfo_mode_dhcp);
-        }
-
+        tvIP.setText(myDhcpInfo.ipAddress);
+        tvMask.setText(myDhcpInfo.netMask);
+        tvGateway.setText(myDhcpInfo.gateway);
+        tvDns1.setText(myDhcpInfo.dns1);
+        tvDns2.setText(myDhcpInfo.dns2);
         tvTitle.setText(title);
     }
 

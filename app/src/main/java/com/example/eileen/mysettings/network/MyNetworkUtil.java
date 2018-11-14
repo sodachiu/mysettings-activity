@@ -7,6 +7,7 @@ import android.net.NetworkInfo;
 import android.net.NetworkUtils;
 import android.net.ethernet.EthernetManager;
 import android.net.pppoe.PppoeManager;
+import android.util.Log;
 
 import com.example.eileen.mysettings.R;
 import com.example.eileen.mysettings.utils.LogUtil;
@@ -17,7 +18,7 @@ import java.util.regex.Pattern;
 
 public class MyNetworkUtil {
 
-    private static LogUtil logUtil = new LogUtil("mynetsettings");
+    private static final String TAG = "qll_mynetworkutil";
 
     /*
     * 检查ip，网关，dns的格式是否合法
@@ -25,8 +26,8 @@ public class MyNetworkUtil {
     * false: 不合法
     * */
     public static boolean checkDhcpItem(String ip){
-        logUtil.logi("MyNetworkUtil--->checkDhcpItem()");
 
+        Log.i(TAG, "checkDhcpItem: ");
         String ipRegEx = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}" +
                 "(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
 
@@ -41,21 +42,20 @@ public class MyNetworkUtil {
     * false：不在同一个网段
     * */
     public static boolean checkInOneSegment(String ip, String gateway){
-        logUtil.logi("MyNetworkUtil--->isInOneSegment()");
-        logUtil.logi("传入的值---->ip:" + ip + " gateway:" + gateway);
+        Log.i(TAG, "checkInOneSegment: ip---->" + ip + " gateway---->" + gateway);
         try{
             String[] ips = ip.split("\\.");
             String[] gateways = gateway.split("\\.");
             for (int i = 0; i < 3; i++){
                 if (!ips[i].equals(gateways[i])){
-                    logUtil.logi("MyNetworkUtil--->不在同一网段，错误");
+                    Log.i(TAG, "checkInOneSegment: 不在同一网段，错误");
                     return false;
                 }
             }
-            logUtil.logi("MyNetworkUtil--->在同一网段，正确");
+            Log.i(TAG, "checkInOneSegment: 同一网段，正确");
             return true;
         }catch (Exception e){
-            logUtil.loge("分割字符串出错---->" + e.toString());
+            Log.i(TAG, "checkInOneSegment: 分割字符出错");
             return false;
 
         }
@@ -66,23 +66,19 @@ public class MyNetworkUtil {
     * */
     public static boolean checkNetAvailable(Context context){
 
-        logUtil.logi("MyNetworkUtil--->checkNetAvailable(Context, context)");
+        Log.i(TAG, "checkNetAvailable: ");
         ConnectivityManager connectivityManager = (ConnectivityManager)
                 context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
         if (networkInfo != null && networkInfo.isConnected()){
-            logUtil.logi("checkNetAvailable()---->网络可用");
+            Log.i(TAG, "checkNetAvailable: 网络可用");
             return true;
         }
 
-        logUtil.logi("checkNetAvailable()---->网络不可用");
+        Log.i(TAG, "checkNetAvailable: 网络不可用");
         return false;
     }
-
-    /*
-    *
-    * 返回当前网络信息
-    * */
 
     public static class MyDhcpInfo{
         public String ipAddress, netMask, gateway, dns1, dns2;
@@ -91,8 +87,8 @@ public class MyNetworkUtil {
         private DhcpInfo dhcpInfo;
         private String defaultValue;
 
-        public MyDhcpInfo(Context context){
-
+        public MyDhcpInfo(Context context, boolean isNetAvailable){
+            Log.i(TAG, "MyDhcpInfo: ");
             em = (EthernetManager) context.getSystemService(Context.ETHERNET_SERVICE);
             pm = (PppoeManager) context.getSystemService(Context.PPPOE_SERVICE);
             String ethMode = em.getEthernetMode();
@@ -105,12 +101,16 @@ public class MyNetworkUtil {
             dns2 = defaultValue;
 
             if (ethMode.equals(EthernetManager.ETHERNET_CONNECT_MODE_PPPOE)){
+                Log.i(TAG, "MyDhcpInfo: 当前网络连接模式为PPPOE，dhcp的信息");
                 this.dhcpInfo = pm.getDhcpInfo();
             }else {
+                Log.i(TAG, "MyDhcpInfo: 当前网络连接模式为DHCP或Static，获取dhcp的信息");
                 this.dhcpInfo = em.getDhcpInfo();
             }
 
-            if (dhcpInfo != null){
+            Log.i(TAG, "MyDhcpInfo: dhcpInfo是否为空---->" + (dhcpInfo == null));
+            if (dhcpInfo != null && isNetAvailable){
+                Log.i(TAG, "MyDhcpInfo: dhcpInfo不为空，进行信息设置");
                 this.ipAddress = NetworkUtils.intToInetAddress(dhcpInfo.ipAddress).getHostAddress();
                 this.netMask = NetworkUtils.intToInetAddress(dhcpInfo.netmask).getHostAddress();
                 this.gateway = NetworkUtils.intToInetAddress(dhcpInfo.gateway).getHostAddress();
@@ -120,19 +120,23 @@ public class MyNetworkUtil {
         }
 
         public EthernetManager getEthernetManager(){
+            Log.i(TAG, "getEthernetManager: ");
             return this.em;
         }
 
         public PppoeManager getPPPoEManager() {
+            Log.i(TAG, "getPPPoEManager: ");
             return this.pm;
         }
 
 
         public DhcpInfo getDhcpInfo(){
+            Log.i(TAG, "getDhcpInfo: ");
             return this.dhcpInfo;
         }
 
         public String getDefaultValue(){
+            Log.i(TAG, "getDefaultValue: ");
             return this.defaultValue;
         }
 

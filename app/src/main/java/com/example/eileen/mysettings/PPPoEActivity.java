@@ -126,23 +126,6 @@ public class PPPoEActivity extends AppCompatActivity
         }
     }
 
-    private boolean checkInfoRepeat(){
-        String ethMode = mEthManager.getEthernetMode();
-
-        Log.i(TAG, "checkInfoRepeat: 当前模式为---->" + ethMode);
-
-        if (!ethMode.equals(EthernetManager.ETHERNET_CONNECT_MODE_PPPOE)){
-            Log.i(TAG, "checkInfoRepeat: 当前模式为pppoe，可以进行pppoe连接");
-            return false;
-        }
-
-        if (mWorkPwd.equals(mUserPwd) && mWorkUsername.equals(mUsername)){
-            //在所有信息均相同的情况下
-            return true;
-        }else {
-            return false;
-        }
-    }
 
     private void setPppoe(){
         Log.i(TAG, "setPppoe: ");
@@ -154,12 +137,6 @@ public class PPPoEActivity extends AppCompatActivity
         }
         mUsername = etUsername.getText().toString().trim();
         mUserPwd = etUserPwd.getText().toString().trim();
-
-        if (checkInfoRepeat()){
-            mHandler.sendEmptyMessage(PPPOE_INFO_REPEAT);
-            Log.i(TAG, "setPppoe: pppoe已经连接且没有改变任何值，拦截pppoe连接");
-            return;
-        }
 
         if (mUsername.equals("")){
             mHandler.sendEmptyMessage(NO_NAME);
@@ -202,11 +179,6 @@ public class PPPoEActivity extends AppCompatActivity
               case NO_PHY_LINK:
                   Toast.makeText(PPPoEActivity.this,
                           "请检查网线是否连接",
-                          Toast.LENGTH_SHORT).show();
-                  break;
-              case PPPOE_CONNECT_FAILED :
-                  Toast.makeText(PPPoEActivity.this,
-                          "999, PPPOE 拨号错误",
                           Toast.LENGTH_SHORT).show();
                   break;
               case PPPOE_DISCONNECT_SUCCESS :

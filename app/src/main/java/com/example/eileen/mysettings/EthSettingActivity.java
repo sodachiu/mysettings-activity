@@ -219,7 +219,7 @@ public class EthSettingActivity extends AppCompatActivity implements View.OnClic
                             Log.i(TAG, "onReceive: 网线拔出");
                             break;
                         case EthernetManager.EVENT_PHY_LINK_UP:
-                            isNetAvailable = true;
+                            isNetAvailable = false;
                             mHandler.sendEmptyMessage(PHY_LINK_UP);
                             Log.i(TAG, "onReceive: 网线插入");
                             break;
@@ -238,7 +238,7 @@ public class EthSettingActivity extends AppCompatActivity implements View.OnClic
                             Log.i(TAG, "onReceive: pppoe连接成功");
                             break;
                         case PppoeManager.EVENT_CONNECT_FAILED:
-                            isNetAvailable = true;
+                            isNetAvailable = false;
                             mHandler.sendEmptyMessage(PPPOE_CONNECT_FAILED);
                             Log.i(TAG, "onReceive: pppoe连接失败");
                             break;
